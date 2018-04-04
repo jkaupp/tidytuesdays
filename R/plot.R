@@ -26,7 +26,7 @@ labels <- plot_data %>%
   group_by(state) %>%
   filter(all(avg_tuition > nat_avg)) %>%
   pull(state) %>%
-  uniqe()
+  unique()
 
 plot <- plot_data %>%
   ggplot(., aes(x = year, y = avg_tuition, group = state)) +
@@ -37,7 +37,7 @@ plot <- plot_data %>%
   geom_point(data = nat_avg, color = "red") +
   scale_y_continuous(labels = scales::dollar) +
   labs(x = NULL, y = NULL, title = "Comparison of the average US tuition growth between 2005 and 2015", subtitle = "Eastern and Northeastern students consistently face tutition above the national average, indicated by the red line.", caption = "\nData: http://trends.collegeboard.org/ | Graphic: @jakekaupp") +
-  theme_minimal(base_family = "Oswald-Light") +
+  theme_minimal(base_family = "Oswald Light") +
   theme(panel.grid.minor = element_blank())
 
 ggsave(plot, filename = glue('tidyweek-{Sys.Date()}.png'), height = 8, width = 6, dpi = 300)
