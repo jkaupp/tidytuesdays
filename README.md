@@ -1,8 +1,8 @@
-#Whats all this then?
+# Whats all this then?
 
 It's my repository for #tidytuesday entries!  I'll include code and submission week by week.
 
-#What's #TidyTuesday?
+# What's #TidyTuesday?
 
 Either you have an interest in cleaning house on Tuesday or you like #rstats, #tidyverse &#R4DS!
 
