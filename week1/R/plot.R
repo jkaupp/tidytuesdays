@@ -4,7 +4,7 @@ library(tidyverse)
 library(glue)
 library(ggrepel)
 
-tidy_data <- dir(here("data"), full.names = TRUE) %>%
+tidy_data <- dir(here("week1", "data"), full.names = TRUE, pattern = "us_avg") %>%
   read_excel() %>%
   gather(year, avg_tuition, -State) %>%
   rename(state = State)
@@ -40,5 +40,5 @@ plot <- plot_data %>%
   theme_minimal(base_family = "Oswald Light") +
   theme(panel.grid.minor = element_blank())
 
-ggsave(plot, filename = glue('tidyweek-{Sys.Date()}.png'), height = 8, width = 6, dpi = 300)
+ggsave(plot, filename = glue('{here("week1")}/tidyweek-{Sys.Date()}.png'), height = 8, width = 6, dpi = 300)
 
