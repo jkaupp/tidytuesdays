@@ -11,7 +11,7 @@ library(viridis)
 # Function to scrape the top avg cap salary by player ----
 pull_position_data <- function(year, position) {
   
-  Sys.sleep(1)
+  Sys.sleep(5)
   
   url <- glue("http://www.spotrac.com/nfl/positional/{year}/{position}")
   
