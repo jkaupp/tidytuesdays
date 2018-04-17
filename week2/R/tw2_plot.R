@@ -28,7 +28,6 @@ labels_538 <- function(labels) {
   labels_out <- sprintf("20%s", str_sub(labels, 3, 4))
   labels_out <- c(labels_out[1], glue("'{str_sub(labels_out[-1], 3, 4)}"))
   return(labels_out)
-
 }
 
 # Create the data scaffold 
