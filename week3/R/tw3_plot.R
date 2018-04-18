@@ -39,7 +39,6 @@ plot_data <- suicide_data %>%
   filter(country %in% problem_countries) %>% 
   mutate(country = factor(country, problem_countries))
 
-
 # Create the sad plot
 sad_plot <- ggplot(plot_data, aes(x = year, y = percentage)) +
   geom_segment(aes(x = min(year), xend = max(year), y = 0, yend = 0)) +
