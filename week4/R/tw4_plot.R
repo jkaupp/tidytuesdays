@@ -26,7 +26,6 @@ make_tooltip <- function(occupation, female, male, salary_gap, ...) {
 }
 
 
-
 # Read in the data
 salary_data <- dir(here("week4","data"), pattern = "salary", full.names = TRUE) %>% 
   read_csv(locale = locale("en"))
@@ -68,7 +67,6 @@ plot <- ggplot(plot_data, aes(x = female, y = male, fill = fill)) +
 
 ggiraph(ggobj = plot, width_svg = 8, width = 1, tooltip_extra_css = tooltip_css)
 
-
 waffle_data <- tidy_gap %>% 
   ungroup() %>% 
   mutate(category = case_when(salary_gap > 1 ~ "Men earn more",
@@ -77,7 +75,14 @@ waffle_data <- tidy_gap %>%
   pull(n) %>% 
   set_names(., c("Men Earn more", "Women Earn More"))
 
-
-
-waffle(waffle_data, rows = 20, flip = TRUE, pad = 0, size = 1, keep = FALSE, use_glyph = c("male", "female"))
+waffle(waffle_data, 
+       rows = 14,
+       size = 1,
+       colors = c("dodgerblue3", "deeppink"), 
+       legend_pos = "bottom", 
+       title = "Out of 1092 occupations on record, men earn more than women in 1011 of them.  That's 92.5% of jobs for those counting at home.") + 
+  theme_jk() +
+  labs(caption = "Data: data.gov.au | Graphic: @jakekaupp") +
+  theme(axis.text = element_blank(),
+        legend.position = "bottom")
 
