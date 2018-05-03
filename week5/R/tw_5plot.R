@@ -45,12 +45,15 @@ map <- ggplot() +
            color ="#2b2b2b", size = 0.05) + 
   scale_fill_viridis(name="How many despactios?", na.value = viridis(5, option = "cividis")[3], option = 'cividis', breaks = seq(1,12,2)) +
   labs(title = "Just how much do you like your commute?",
-       subtitle = str_wrap("What if your commute was defined by hearing a song on repeat?  What if that song was the most streamed song on the planet, Despacito?", 80),
+       subtitle = str_wrap("What if your commute was defined by hearing a song on repeat?  
+                           What if that song was the most streamed song on the planet, Despacito? 
+                           Illustrated below is the average number of times you'd hear it on your way home across the US.", 80),
        caption = "Data: census.gov | Graphic: @jakekaupp") +
   coord_map() +
-  theme_map(base_family="Lato Light", 
+  theme_map(base_family="Scope One", 
             base_size = 16) +
   theme(legend.title = element_text(size = 10),
+        plot.title = element_text(family = "Oswald"),
         legend.background = element_rect(fill = NA),
         plot.caption = element_text(size = 10),
         legend.position = c(0.9,0.1))
