@@ -1,0 +1,113 @@
+﻿"CENSUS_YEAR","GEO_CODE (POR)","GEO_LEVEL","GEO_NAME","GNR","DATA_QUALITY_FLAG","ALT_GEO_CODE","DIM: Population, dwellings and households (8)","Member ID: Population, dwellings and households (8)","Notes: Population, dwellings and households (8)","Dim: Census year (8): Member ID: [1]: 2016","Dim: Census year (8): Member ID: [2]: 2011","Dim: Census year (8): Member ID: [3]: 2006","Dim: Census year (8): Member ID: [4]: 2001","Dim: Census year (8): Member ID: [5]: 1996 (Note: 4)","Dim: Census year (8): Member ID: [6]: 1991 (Note: 5)","Dim: Census year (8): Member ID: [7]: 1986 (Note: 6)","Dim: Census year (8): Member ID: [8]: 1981 (Note: 7)"
+2016,"01","0","Canada",4.0,"20000","01","Total population",1,1,35151730,33476690,31612895,30007095,28846760,27296859,25309331,24343181
+2016,"01","0","Canada",4.0,"20000","01","Total - Dwellings occupied by usual residents",2,,14099860,13349450,12463435,11588730,10842665,10039287,9011472,8298901
+2016,"01","0","Canada",4.0,"20000","01","Private dwellings occupied by usual residents",3,,14072075,13320615,12435520,11562975,10820050,10018267,8991672,8281531
+2016,"01","0","Canada",4.0,"20000","01","Collective dwellings occupied by usual residents",4,,27780,28835,27915,25755,22615,21020,19800,17370
+2016,"01","0","Canada",4.0,"20000","01","Total - Population in dwellings",5,2,35145545,33470095,31606350,30001820,28839680,27178745,25283915,24317360
+2016,"01","0","Canada",4.0,"20000","01","Population in private dwellings",6,3,34460060,32856980,31072420,29522300,28390680,26731860,24849545,23911625
+2016,"01","0","Canada",4.0,"20000","01","Average household size in private dwellings",7,,2.4,2.5,2.5,2.6,2.6,2.7,2.8,2.9
+2016,"01","0","Canada",4.0,"20000","01","Population in collective dwellings",8,,685480,613115,533930,479520,449000,446885,434370,405735
+2016,"10","1","Newfoundland and Labrador",4.0,"00000","10","Total population",1,1,519720,514535,505470,512930,551790,568474,568349,567681
+2016,"10","1","Newfoundland and Labrador",4.0,"00000","10","Total - Dwellings occupied by usual residents",2,,219110,209295,197715,189420,185900,174825,159386,148649
+2016,"10","1","Newfoundland and Labrador",4.0,"00000","10","Private dwellings occupied by usual residents",3,,218675,208845,197245,189045,185495,174495,159081,148419
+2016,"10","1","Newfoundland and Labrador",4.0,"00000","10","Collective dwellings occupied by usual residents",4,,435,450,470,375,405,330,305,230
+2016,"10","1","Newfoundland and Labrador",4.0,"00000","10","Total - Population in dwellings",5,2,519625,514490,505415,512850,551660,564790,567455,567035
+2016,"10","1","Newfoundland and Labrador",4.0,"00000","10","Population in private dwellings",6,3,512250,507270,499155,507245,545825,558930,561940,561950
+2016,"10","1","Newfoundland and Labrador",4.0,"00000","10","Average household size in private dwellings",7,,2.3,2.4,2.5,2.7,2.9,3.2,3.5,3.8
+2016,"10","1","Newfoundland and Labrador",4.0,"00000","10","Population in collective dwellings",8,,7375,7220,6260,5605,5835,5860,5515,5085
+2016,"11","1","Prince Edward Island",4.1,"00000","11","Total population",1,1,142905,140205,135850,135290,134555,129765,126646,122506
+2016,"11","1","Prince Edward Island",4.1,"00000","11","Total - Dwellings occupied by usual residents",2,,59665,56715,53360,50945,48295,44758,40844,37780
+2016,"11","1","Prince Edward Island",4.1,"00000","11","Private dwellings occupied by usual residents",3,,59470,56465,53085,50800,47960,44478,40694,37660
+2016,"11","1","Prince Edward Island",4.1,"00000","11","Collective dwellings occupied by usual residents",4,,190,250,275,145,335,280,150,120
+2016,"11","1","Prince Edward Island",4.1,"00000","11","Total - Population in dwellings",5,2,142830,140190,135840,135285,134515,129180,126310,122250
+2016,"11","1","Prince Edward Island",4.1,"00000","11","Population in private dwellings",6,3,139685,137390,133245,133070,131805,126555,123930,120235
+2016,"11","1","Prince Edward Island",4.1,"00000","11","Average household size in private dwellings",7,,2.3,2.4,2.5,2.6,2.8,2.8,3.0,3.2
+2016,"11","1","Prince Edward Island",4.1,"00000","11","Population in collective dwellings",8,,3145,2800,2595,2215,2710,2625,2380,2015
+2016,"12","1","Nova Scotia",3.9,"00000","12","Total population",1,1,923600,921725,913460,908005,909280,899942,873176,847442
+2016,"12","1","Nova Scotia",3.9,"00000","12","Total - Dwellings occupied by usual residents",2,,402900,391330,377915,360905,343375,325037,296435,273849
+2016,"12","1","Nova Scotia",3.9,"00000","12","Private dwellings occupied by usual residents",3,,401990,390280,376830,360020,342595,324377,295780,273194
+2016,"12","1","Nova Scotia",3.9,"00000","12","Collective dwellings occupied by usual residents",4,,905,1050,1085,885,780,660,655,655
+2016,"12","1","Nova Scotia",3.9,"00000","12","Total - Population in dwellings",5,2,923370,921350,913100,907625,908880,894130,871215,845075
+2016,"12","1","Nova Scotia",3.9,"00000","12","Population in private dwellings",6,3,908340,906175,899735,895305,896600,880720,856530,832225
+2016,"12","1","Nova Scotia",3.9,"00000","12","Average household size in private dwellings",7,,2.3,2.3,2.4,2.5,2.6,2.7,2.9,3.0
+2016,"12","1","Nova Scotia",3.9,"00000","12","Population in collective dwellings",8,,15025,15175,13365,12320,12280,13410,14685,12850
+2016,"13","1","New Brunswick",3.9,"00000","13","Total population",1,1,747100,751175,730000,729500,738130,723900,709442,696403
+2016,"13","1","New Brunswick",3.9,"00000","13","Total - Dwellings occupied by usual residents",2,,320715,314975,296825,284665,271840,254287,232167,215374
+2016,"13","1","New Brunswick",3.9,"00000","13","Private dwellings occupied by usual residents",3,,319770,314005,295875,283820,271155,253707,231682,214919
+2016,"13","1","New Brunswick",3.9,"00000","13","Collective dwellings occupied by usual residents",4,,945,970,950,845,685,580,485,455
+2016,"13","1","New Brunswick",3.9,"00000","13","Total - Population in dwellings",5,2,746995,751050,729915,729390,737940,719925,708085,695135
+2016,"13","1","New Brunswick",3.9,"00000","13","Population in private dwellings",6,3,730705,735715,716770,717540,727360,709455,697210,685135
+2016,"13","1","New Brunswick",3.9,"00000","13","Average household size in private dwellings",7,,2.3,2.3,2.4,2.5,2.7,2.8,3.0,3.2
+2016,"13","1","New Brunswick",3.9,"00000","13","Population in collective dwellings",8,,16285,15335,13145,11850,10580,10470,10875,10000
+2016,"24","1","Quebec",3.7,"20000","24","Total population",1,1,8164360,7903000,7546130,7237475,7138795,6895963,6532461,6438403
+2016,"24","1","Quebec",3.7,"20000","24","Total - Dwellings occupied by usual residents",2,,3538350,3402705,3196670,2985710,2828200,2639456,2362019,2177203
+2016,"24","1","Quebec",3.7,"20000","24","Private dwellings occupied by usual residents",3,,3531660,3395340,3188710,2978115,2822030,2634301,2357104,2172858
+2016,"24","1","Quebec",3.7,"20000","24","Collective dwellings occupied by usual residents",4,,6685,7365,7960,7595,6170,5155,4915,4345
+2016,"24","1","Quebec",3.7,"20000","24","Total - Population in dwellings",5,2,8163485,7901900,7545195,7236440,7137585,6873300,6526600,6433280
+2016,"24","1","Quebec",3.7,"20000","24","Population in private dwellings",6,3,7965455,7732835,7395810,7097850,7008130,6747065,6405195,6318090
+2016,"24","1","Quebec",3.7,"20000","24","Average household size in private dwellings",7,,2.3,2.3,2.3,2.4,2.5,2.6,2.7,2.9
+2016,"24","1","Quebec",3.7,"20000","24","Population in collective dwellings",8,,198035,169065,149385,138590,129455,126235,121405,115190
+2016,"35","1","Ontario",3.7,"20000","35","Total population",1,1,13448490,12851820,12160280,11410045,10753575,10084885,9101694,8625107
+2016,"35","1","Ontario",3.7,"20000","35","Total - Dwellings occupied by usual residents",2,,5177425,4896040,4562150,4226765,3931085,3645049,3228258,2975225
+2016,"35","1","Ontario",3.7,"20000","35","Private dwellings occupied by usual residents",3,,5169175,4887510,4554255,4219410,3924510,3638364,3221728,2969785
+2016,"35","1","Ontario",3.7,"20000","35","Collective dwellings occupied by usual residents",4,,8255,8530,7895,7355,6575,6685,6530,5440
+2016,"35","1","Ontario",3.7,"20000","35","Total - Population in dwellings",5,2,13444505,12847975,12156400,11407235,10749320,10044540,9092075,8615165
+2016,"35","1","Ontario",3.7,"20000","35","Population in private dwellings",6,3,13242160,12655135,11980415,11254730,10605060,9900070,8951545,8488320
+2016,"35","1","Ontario",3.7,"20000","35","Average household size in private dwellings",7,,2.6,2.6,2.6,2.7,2.7,2.7,2.8,2.8
+2016,"35","1","Ontario",3.7,"20000","35","Population in collective dwellings",8,,202350,192840,175985,152505,144260,144470,140530,126845
+2016,"46","1","Manitoba",4.3,"00000","46","Total population",1,1,1278365,1208270,1148405,1119580,1113895,1091942,1063016,1026241
+2016,"46","1","Manitoba",4.3,"00000","46","Total - Dwellings occupied by usual residents",2,,490620,467455,449930,433905,420710,406290,383320,358944
+2016,"46","1","Manitoba",4.3,"00000","46","Private dwellings occupied by usual residents",3,,489050,466140,448765,432555,419390,405120,382345,357984
+2016,"46","1","Manitoba",4.3,"00000","46","Collective dwellings occupied by usual residents",4,,1570,1315,1165,1350,1320,1170,975,960
+2016,"46","1","Manitoba",4.3,"00000","46","Total - Population in dwellings",5,2,1278245,1208115,1148180,1119405,1113785,1086850,1061885,1025150
+2016,"46","1","Manitoba",4.3,"00000","46","Population in private dwellings",6,3,1240700,1175160,1119525,1090625,1087145,1060775,1035725,1001360
+2016,"46","1","Manitoba",4.3,"00000","46","Average household size in private dwellings",7,,2.5,2.5,2.5,2.5,2.6,2.6,2.7,2.8
+2016,"46","1","Manitoba",4.3,"00000","46","Population in collective dwellings",8,,37545,32955,28655,28780,26640,26075,26160,23790
+2016,"47","1","Saskatchewan",4.8,"00000","47","Total population",1,1,1098355,1033380,968160,978935,990240,988928,1009613,968313
+2016,"47","1","Saskatchewan",4.8,"00000","47","Total - Dwellings occupied by usual residents",2,,433905,410805,388300,380870,373770,364039,359238,333542
+2016,"47","1","Saskatchewan",4.8,"00000","47","Private dwellings occupied by usual residents",3,,432620,409645,387160,379680,372820,363149,358268,332712
+2016,"47","1","Saskatchewan",4.8,"00000","47","Collective dwellings occupied by usual residents",4,,1280,1160,1140,1190,950,890,970,830
+2016,"47","1","Saskatchewan",4.8,"00000","47","Total - Population in dwellings",5,2,1098280,1033260,968055,978855,990150,983450,1008875,967340
+2016,"47","1","Saskatchewan",4.8,"00000","47","Population in private dwellings",6,3,1070555,1009035,945860,956635,970180,963915,989435,949095
+2016,"47","1","Saskatchewan",4.8,"00000","47","Average household size in private dwellings",7,,2.5,2.5,2.4,2.5,2.6,2.7,2.8,2.8
+2016,"47","1","Saskatchewan",4.8,"00000","47","Population in collective dwellings",8,,27720,24225,22195,22220,19970,19535,19440,18245
+2016,"48","1","Alberta",4.7,"20000","48","Total population",1,1,4067175,3645255,3290350,2974805,2696830,2545553,2365825,2237724
+2016,"48","1","Alberta",4.7,"20000","48","Total - Dwellings occupied by usual residents",2,,1530870,1393515,1258940,1106975,981390,912441,838127,759886
+2016,"48","1","Alberta",4.7,"20000","48","Private dwellings occupied by usual residents",3,,1527680,1390275,1256190,1104095,979175,910391,836127,758241
+2016,"48","1","Alberta",4.7,"20000","48","Collective dwellings occupied by usual residents",4,,3190,3240,2750,2880,2215,2050,2000,1645
+2016,"48","1","Alberta",4.7,"20000","48","Total - Population in dwellings",5,2,4066970,3644860,3289860,2974535,2696535,2532870,2364315,2235740
+2016,"48","1","Alberta",4.7,"20000","48","Population in private dwellings",6,3,3978145,3567935,3228010,2918920,2647110,2484980,2318440,2194950
+2016,"48","1","Alberta",4.7,"20000","48","Average household size in private dwellings",7,,2.6,2.6,2.6,2.6,2.7,2.7,2.8,2.9
+2016,"48","1","Alberta",4.7,"20000","48","Population in collective dwellings",8,,88825,76925,61850,55615,49425,47890,45875,40790
+2016,"59","1","British Columbia",4.9,"20000","59","Total population",1,1,4648055,4400055,4113490,3907735,3724500,3282061,2883367,2744467
+2016,"59","1","British Columbia",4.9,"20000","59","Total - Dwellings occupied by usual residents",2,,1886080,1768940,1646680,1537235,1427540,1246839,1089636,999086
+2016,"59","1","British Columbia",4.9,"20000","59","Private dwellings occupied by usual residents",3,,1881970,1764640,1642715,1534335,1424635,1243894,1087116,996641
+2016,"59","1","British Columbia",4.9,"20000","59","Collective dwellings occupied by usual residents",4,,4110,4300,3965,2900,2905,2945,2520,2445
+2016,"59","1","British Columbia",4.9,"20000","59","Total - Population in dwellings",5,2,4647815,4399685,4113105,3907425,3724165,3265095,2881430,2742410
+2016,"59","1","British Columbia",4.9,"20000","59","Population in private dwellings",6,3,4560240,4324505,4054110,3858735,3677890,3216230,2835585,2692860
+2016,"59","1","British Columbia",4.9,"20000","59","Average household size in private dwellings",7,,2.4,2.5,2.5,2.5,2.6,2.6,2.6,2.7
+2016,"59","1","British Columbia",4.9,"20000","59","Population in collective dwellings",8,,87575,75180,58995,48690,46275,48865,45845,49550
+2016,"60","1","Yukon",6.7,"00100","60","Total population",1,1,35875,33895,30370,28675,30765,27797,23504,23153
+2016,"60","1","Yukon",6.7,"00100","60","Total - Dwellings occupied by usual residents",2,,15320,14205,12720,11490,11620,10040,8093,7695
+2016,"60","1","Yukon",6.7,"00100","60","Private dwellings occupied by usual residents",3,,15215,14120,12615,11365,11460,9915,7973,7600
+2016,"60","1","Yukon",6.7,"00100","60","Collective dwellings occupied by usual residents",4,,105,85,105,125,160,125,120,95
+2016,"60","1","Yukon",6.7,"00100","60","Total - Population in dwellings",5,2,35810,33865,30370,28675,30760,27435,23475,23095
+2016,"60","1","Yukon",6.7,"00100","60","Population in private dwellings",6,3,35110,33320,29860,28165,30000,26895,22800,22535
+2016,"60","1","Yukon",6.7,"00100","60","Average household size in private dwellings",7,,2.3,2.4,2.4,2.5,2.6,2.7,2.8,2.9
+2016,"60","1","Yukon",6.7,"00100","60","Population in collective dwellings",8,,700,545,510,510,760,540,675,560
+2016,"61","1","Northwest Territories",7.5,"00100","61","Total population",1,1,41785,41460,41465,37360,64405,57649,52238,45741
+2016,"61","1","Northwest Territories",7.5,"00100","61","Total - Dwellings occupied by usual residents",2,,15045,14775,14325,12635,18935,16236,13944,11663
+2016,"61","1","Northwest Territories",7.5,"00100","61","Private dwellings occupied by usual residents",3,,14980,14700,14225,12565,18825,16076,13774,11518
+2016,"61","1","Northwest Territories",7.5,"00100","61","Collective dwellings occupied by usual residents",4,,65,75,100,70,110,160,170,145
+2016,"61","1","Northwest Territories",7.5,"00100","61","Total - Population in dwellings",5,2,41700,41450,41450,37350,64400,57185,52185,45685
+2016,"61","1","Northwest Territories",7.5,"00100","61","Population in private dwellings",6,3,41135,40805,40715,36955,63590,56275,51200,44875
+2016,"61","1","Northwest Territories",7.5,"00100","61","Average household size in private dwellings",7,,2.7,2.8,2.9,2.9,3.4,3.5,3.7,3.8
+2016,"61","1","Northwest Territories",7.5,"00100","61","Population in collective dwellings",8,,565,645,735,395,810,910,985,810
+2016,"62","1","Nunavut",7.9,"00100","62","Total population",1,1,35945,31910,29475,26745,..,..,..,..
+2016,"62","1","Nunavut",7.9,"00100","62","Total - Dwellings occupied by usual residents",2,,9870,8705,7905,7220,..,..,..,..
+2016,"62","1","Nunavut",7.9,"00100","62","Private dwellings occupied by usual residents",3,,9820,8665,7855,7175,..,..,..,..
+2016,"62","1","Nunavut",7.9,"00100","62","Collective dwellings occupied by usual residents",4,,50,40,50,45,..,..,..,..
+2016,"62","1","Nunavut",7.9,"00100","62","Total - Population in dwellings",5,2,35920,31905,29470,26745,..,..,..,..
+2016,"62","1","Nunavut",7.9,"00100","62","Population in private dwellings",6,3,35580,31700,29200,26525,..,..,..,..
+2016,"62","1","Nunavut",7.9,"00100","62","Average household size in private dwellings",7,,3.6,3.7,3.7,3.7,..,..,..,..
+2016,"62","1","Nunavut",7.9,"00100","62","Population in collective dwellings",8,,340,205,270,220,..,..,..,..
