@@ -10,7 +10,7 @@ library(jkmisc)
 library(nord)
 
 
-#
+
 provinces <- set_names(c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador",
                          "Nova Scotia", "Northwest Territories", "Nunavut", "Ontario", "Prince Edward Island", "Quebec",
                          "Saskatchewan", "Yukon"),
@@ -28,17 +28,20 @@ tims_city_prov <- tim_hortons %>%
 
 # Counts at the National level
 tims_national <- tim_hortons %>% 
-  count(province) 
+  count(province) %>% 
+  mutate(color = ifelse(province == "ON", nord("victory_bonds", 1), "grey50"))
 
-ggplot(tims_national, aes(x = reorder(province,n), y = n)) +
-  geom_lollipop(color = nord("halifax_harbor")[5]) +
+national <- ggplot(tims_national, aes(x = reorder(province,n), y = n)) +
+  geom_lollipop(aes(color = color)) +
+  scale_color_identity() +
   scale_y_continuous(expand = c(0.01,0.05),  breaks = scales::pretty_breaks()) +
   scale_x_discrete(labels = function(x) provinces[x]) +
   coord_flip() +
-  labs(x = NULL, y = NULL, title = "Ontario, we have a problem....", subtitle = "Number of Tim Horton's stores in each province.") +
+  labs(x = NULL, y = NULL, title = "Ontario, we have a problem....", subtitle = "The highest number of Tim Hortons per province goes to Ontario, a land where you can't even get an oat cake.",
+       caption = "\nData: timhortons.com | Graphic: @jakekaupp") +
   theme_jk(grid = "Xx")
 
-ggsave(here("week6", "National Tims.png"), width = 8, height = 4)
+ggsave(plot = national, here("week6", "National Tims.png"), width = 10, height = 6)
 
 census_2011 <- dir(here("week6", "data"), full.names = TRUE, pattern = "2011 census") %>% 
   read_csv() %>% 
@@ -64,12 +67,26 @@ census_2011 <- dir(here("week6", "data"), full.names = TRUE, pattern = "2011 cen
 tims_density <- regex_right_join(census_2011, tims_city_prov,  by = c("city", "province"), ignore_case = TRUE) 
 
 
-tims_density %>% 
-  filter(!is.na(population)) %>% 
+plot_data <- tims_density %>% 
   select(population, city = city.y, province = province.x, n) %>% 
   group_by(city, province) %>% 
   summarize_at(c("n", "population"), sum, na.rm = TRUE) %>% 
   ungroup() %>% 
-  filter(population != 0, n > 1) %>% 
-  mutate(density = (population/n)/1000) %>% 
-  top_n(-50, density) %>% View()
+  filter(population != 0, n > 1, population > 10000) %>% 
+  mutate(density = (n/(population/1000))) %>% 
+  top_n(25, density) %>% 
+  mutate(color = ifelse(density == max(density), nord("victory_bonds", 1), "grey50"))
+
+
+most_tims <- ggplot(plot_data, aes(x = reorder(city, density), y = density)) +
+  geom_lollipop(aes(color = color)) +
+  scale_color_identity() +
+  scale_y_continuous(expand = c(0,0.01),  breaks = scales::pretty_breaks(), limits = c(0,1.2)) +
+  coord_flip() +
+  labs(y = "Number of Tim Hortons stores per 1,000 people", x = NULL, title = "However, the title of most Tim Hortons per capita belongs to Cold Lake, Alberta", 
+       subtitle = "When looking at towns/cities with population > 10,000 and with more than two Tim Hortons. \nMy hometown of Truro, Nova Scotia comes in a puzzling fourth.",
+       caption = "\nData: timhortons.com | Graphic: @jakekaupp") +
+  theme_jk(grid = "Xx")
+
+ggsave(plot = most_tims, here("week6", "Most Tims.png"), width = 10, height = 6)
+
