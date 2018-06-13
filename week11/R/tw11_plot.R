@@ -33,7 +33,12 @@ build_treemap <- function(x, y, size)  {
           border.col = "white",
           border.lwds = 1,
           position.legend = "none",
-          palette = nord("lake_superior"),
+          palette = c("#ffd700",
+          "#fa8775",
+          "#ea5f94",
+          "#cd34b5",
+          "#9d02d7",
+          "#0000ff"),
           align.labels = list(c("left","top"), c("right","bottom")),
           drop.unused.levels = TRUE,
           vp = vplayout(x,y))
@@ -53,7 +58,7 @@ fifa_maps <- function() {
   
 }
 
-pdf(here("week11", "Fifa Treemaps.png"), width = 11, height=8.5)
+png(here("week11", "Fifa Treemaps.png"), width = 11, height=8.5, units = "in", res = 100)
 fifa_maps()
 dev.off()
 
