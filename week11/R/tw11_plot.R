@@ -12,6 +12,8 @@ raw_data <- read_csv("https://github.com/rfordatascience/tidytuesday/raw/master/
 font_add_google("Oswald","Oswald-Light", regular.wt = 300)
 font_add_google("Scope One","Scope One")
 
+showtext_auto()
+
 vplayout <- function(x, y) viewport(width=11/3, height=8.5, layout.pos.row = x, layout.pos.col = y)
 
 build_treemap <- function(x, y, size)  {
@@ -25,6 +27,7 @@ build_treemap <- function(x, y, size)  {
           type = "categorical",
           title = title[size],
           title.legend = "",
+          fontfamily.title = "Oswald-Light",
           fontsize.labels = c(20, 10),
           fontfamily.labels = "Oswald-Light",
           fontcolor.labels = "#f0f0f0",
@@ -48,7 +51,7 @@ fifa_maps <- function() {
   pushViewport(viewport(layout = grid.layout(3, 3, heights = c(0.1, 0.8, 0.1))))
   par(mai=c(0,0,0,0))
   
-  grid.text("Treemaps Comparing FIFA Share Differences by Confederation and Country", x = 0.1, hjust = 0, vp = vplayout(1,1), gp = gpar(fontfamily = "Oswald-Light", fontsize = 30))
+  grid.text("Comparing FIFA Share Differences by Confederation and Country", x = 0.1, hjust = 0, vp = vplayout(1,1), gp = gpar(fontfamily = "Oswald-Light", fontsize = 30))
   build_treemap(2, 1, "population_share")
   build_treemap(2, 2, "tv_audience_share")
   build_treemap(2, 3, "gdp_weighted_share")
