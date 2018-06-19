@@ -63,4 +63,3 @@ png(here("week11", "Fifa Treemaps.png"), width = 11, height=8.5, units = "in", r
 fifa_maps()
 dev.off()
 
-
