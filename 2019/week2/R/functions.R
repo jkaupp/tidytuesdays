@@ -12,9 +12,12 @@ share_packed_circle <- function(df) {
     theme_void() +
     labs(title = unique(df$year)) +
     coord_equal() +
-    scale_fill_viridis(option = "plasma") +
+    scale_fill_nord("lumina", discrete = FALSE, reverse = TRUE) +
+    #scale_fill_viridis(option = "plasma") +
     theme(legend.position = "none", 
-          plot.title = element_text(family = "Oswald", hjust = 0.5))
+          plot.background = element_rect(fill = "#4C566A"),
+          plot.title = element_text(family = "Oswald", hjust = 0.5, color = "white"),
+          )
   
   return(plot)
 }

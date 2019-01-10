@@ -5,6 +5,7 @@ library(jkmisc)
 library(lubridate)
 library(here)
 library(patchwork)
+library(nord)
 
 set.seed(42)
 
@@ -23,8 +24,11 @@ list <- tv_data %>%
 
 out <- wrap_plots(list, ncol = 10, nrow = 3) +
   plot_annotation(title = "The Evolution and Differentiation of Dramas Across the Golden Age of Television",
-                  subtitle = str_wrap("This chart presents a time series of circle-packed network representations of the television dramas.  The larger blue circle represents the year, pink represents the genre (Action, Comedy, etc.) and the yellow represents the individual program.", 200),
+                  subtitle = str_wrap("This chart presents a time series of circle-packed network representations of the television dramas.  
+                                      The larger dark blue circle represents the year, light blue represents the genre (Action, Comedy, etc.) and the pale pink represents the individual program. 
+                                      The area of each circle (node) is porportional to the sum of the audience share of the smaller circles within (child nodes).", 180),
                   caption = "data: Economist | graphic: @jakekaupp",
-                  theme = theme_jk())
+                  theme = theme_jk(plot_title_size  = 22, subtitle_size = 14) %+replace% theme(plot.background = element_rect(fill ="#2E3440"),
+                                                      text = element_text(color = "white")))
  
-ggsave(here("2019","week2", "tt_week2.png"), out, width = 16, height = 10)
+ggsave(here("2019","week2", "tt_week2.png"), out, width = 16, height = 8)
