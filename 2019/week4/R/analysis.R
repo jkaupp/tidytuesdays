@@ -58,7 +58,7 @@ plot <- ggplot() +
   scale_fill_viridis_c("", na.value = "white", option = 'cividis', labels = scales::percent) +
   coord_map() +
   labs(title = "Differences between the General and Prison Population by County and Ethnic Group from 1970 to 2016",
-       subtitle = str_wrap("Non-white and non-Asian ethnic groups in the South-Eastern United States have a higher average representation in prision than in the overall population.  Missing data indicated by no fill color.",  90),
+       subtitle = str_wrap("Non-white and non-Asian ethnic groups in the South-Eastern United States have a higher average representation in prison than in the overall population.  Missing data indicated by no fill color.",  90),
        caption = "Data: Vera Institute of Justice | Graphic: @jakekaupp") +
   facet_grid(category ~ ethnicity , labeller = labeller(category = c("pop" = "Total\nPopulation", "prison" = "Prison\nPopulation"),
                                                        ethnicity = str_to_title)) +
