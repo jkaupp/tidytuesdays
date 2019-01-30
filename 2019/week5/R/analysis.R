@@ -27,6 +27,6 @@ ggplot(full_data, aes(y = total_consumption_lbs, x = milk_production_lbs)) +
   labs(x = "US Milk Production (lbs)",
        y = "US Average Dairy Consumption (lbs)",
        title = "100 Slices of American Cheese or, the Fable of Supply Management",
-       subtitle = str_wrap("The connected scatterplot below illustrates the relationship between total average dairy consumption and total milk production has changed over the past 25 years.
-                           US supply far exceeds the total demand, highlighting overproduction and a case for supply management.", 120)) +  
+       subtitle = str_wrap("The connected scatterplot below illustrates the relationship between total average dairy consumption and total milk production over the past 25 years.
+                           US supply far exceeds the demand, highlighting overproduction and a case for supply management.", 120)) +  
   theme_jk()
