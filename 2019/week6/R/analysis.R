@@ -50,6 +50,6 @@ heatmap <- ggplot(plot_data, aes(x = year, y = fct_reorder(state, price_index, .
         legend.key.width = unit(1, "cm"))
 
 
-out <- patchwork::wrap_plots(prime, heatmap, heights = c(0.3,1), ncol = 1)
+out <- patchwork::wrap_plots(prime, heatmap, heights = c(0.2,1), ncol = 1)
 
 ggsave(here("2019", "week6", "tw6_plot.png"), out, width = 8, height = 10)
