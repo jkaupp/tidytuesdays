@@ -77,7 +77,8 @@ plot <- ggplot(plot_data, aes(x = year, y = value, color = discipline)) +
   labs(x = NULL,
        y = NULL,
        title = "Median Completion Time for Doctoral Degrees Are Getting Shorter",
-       subtitle = str_wrap("Median completion time in years from 1985 to 2017 contrasting selected disciplines for both University and Graduate School experience.  Education, Humanities and Social Sciences doctoral candidates have a higher than average time to completion in both categories compared to other disciplines. ", 120)) +
+       subtitle = str_wrap("Median completion time in years from 1985 to 2017 contrasting selected disciplines for both University and Graduate School experience.  Education, Humanities and Social Sciences doctoral candidates have a higher than average time to completion in both categories compared to other disciplines. ", 120),
+       caption = "Data: NSF | Analysis: @jakekaupp") +
   theme_jk(grid = "XY") +
   theme(legend.position = "bottom")
 
