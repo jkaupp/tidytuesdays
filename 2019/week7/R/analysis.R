@@ -38,6 +38,6 @@ plot <- ggplot(oecd_data, aes(x = year, y = -rank, group = country)) +
        y = NULL,
        title = "Canada is Losing a Step In the Global Research Race.",
        subtitle = str_wrap("Shown below is the ranking of research intensity (% of Gross Domestic Product devoted to Research) from 1995-2016. Canada has been on a decline since hitting a peak in 2001.  Most notably is 2009-2016, which coincides with the systematic defunding of Canadian research scientists by the Conservative Harper Government.", 120),
-       catpion = "Data: OECD | Graphic: @jakekaupp")
+       caption = "Data: OECD | Graphic: @jakekaupp")
 
-ggsave(here("2019", "week7", "tw7_plot.png"), plot, width = 9, height = 5)
+ggsave(here("2019", "week7", "tw7_plot.png"), plot, width = 9, height = 4.5)
