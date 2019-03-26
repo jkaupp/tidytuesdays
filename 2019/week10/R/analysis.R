@@ -1,7 +1,7 @@
 library(tidyverse)
 library(jkmisc)
 library(ggrepel)
-
+library(here)
 
 jobs_gender <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-05/jobs_gender.csv")
 
@@ -23,13 +23,15 @@ slope_data <- build_slopegraph(plot_data, "variable", "value", "occupation") %>%
                                 str_detect(group, "Electrical") ~ "Electrical Engineers",
                                 str_detect(group, "Marine") ~ "Marine Engineers",
                                 str_detect(group, "Industrial") ~ "Industrial Engineers",
-                           TRUE ~ str_to_title(group)))
+                           TRUE ~ str_to_title(group))) %>% 
+  mutate(group = str_replace(group, "Engineers", "Engineering"))
+
 
 labels <- pretty(slope_data$y, 9)
 breaks <- pretty(slope_data$ypos, 5)
 
 
-ggplot(slope_data, aes(x = x, y = ypos, group = group, color = diff)) +
+plot <- ggplot(slope_data, aes(x = x, y = ypos, group = group, color = diff)) +
   geom_point() +
   geom_line() +
   geom_label_repel(data = filter(slope_data, x == "Women"), aes(label = group), direction = "y", hjust = 0, nudge_x = 1, segment.alpha = 0.3, family = "Oswald", label.size = 0, fill = "white") +
@@ -42,5 +44,7 @@ ggplot(slope_data, aes(x = x, y = ypos, group = group, color = diff)) +
   labs(x = NULL,
        y = NULL,
        title = "The Unnecessary and Unethical Pay Disparity in Engineering.",
-       subtitle = str_wrap("A slopegraph presenting the average total earnings from 2014-2016 for men and women across engineering disciplines.  Mining Engineering is the only discipline with women earning more than men on average.", 100),
+       subtitle = str_wrap("A slopegraph presenting the average total earnings from 2014-2016 for men and women across engineering disciplines.  Mining Engineering is the only discipline with women earning more than men on average.", 70),
        caption = "Data: Census Bureau | Graphic: @jakekaupp")
+
+ggsave(here("2019", "week10", "tw10_plot.png"), plot, width = 6.5, height = 9, type = "cairo")

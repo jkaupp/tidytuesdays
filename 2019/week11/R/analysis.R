@@ -42,7 +42,7 @@ plot_data <- prolific %>%
          alpha = case_when(designer == top_rated ~ 1,
                            designer == "Overall" ~ 1,
                            designer == top_publishing ~ 1,
-                           TRUE ~ 0.1),
+                           TRUE ~ 0.05),
          size = case_when(designer == top_rated ~ 0.5,
                            designer == "Overall" ~ 0.5,
                            designer == top_publishing ~ 0.5,
@@ -73,7 +73,7 @@ plot <- ggplot(plot_data, aes(x = year_published, y = year_avg_rating, group = d
   labs(x = NULL, 
        y = NULL,
        title = "It's Not A Habit, It's Cool, I'm a Prolific Game Designer",
-       subtitle = str_wrap("A comparison from 1990 to 2016 of the the top rated and top published designer amongst those with 10 or more published games.  Dashed line represents the overall average designer rating.", 150),
+       subtitle = str_wrap("A comparison from 1990 to 2016 of the the top rated and top published designer amongst those with 10 or more published games. Red dashed line represents the overall average designer rating.", 150),
        caption = "Data: Board Game Geek | Graphic: @jakekaupp") +
   theme_jk(grid = "XY")
 
