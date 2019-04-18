@@ -38,7 +38,7 @@ plot <- ggplot(plot_data, aes(x = age, y = factor(name, order), size = rolling_w
   labs(x = NULL,
        y = NULL,
        title = "Bright Stardom or Fading Obscurity: Looking at Players Major Wins Across their Careers.",
-       subtitle = str_wrap("The chart plots cummulative major wins against player age. The size and transparency of each point is mapped to the cummulative number of majors won at each age.  Looking at the data we can see the hot streaks in certain players, as well as the dominance of certain champions.", 110),
+       subtitle = str_wrap("The chart plots cumulative major wins against player age. Size and transparency of each point are mapped to the cumulative number of majors won.  Looking at the data, we can see the hot streaks in individual players, as well as the dominance of certain champions.", 110),
        caption = "Data: wikipedia | Graphic: @jakekaupp")
   
 ggsave(here("2019","week15","tw15_plot.png"), type = "cairo", width = 10, height = 12)
