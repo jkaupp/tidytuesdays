@@ -45,7 +45,7 @@ legend <- plot_data %>%
   ggplot(aes(x = month, y = percent, fill = binomial_name, group = year)) +
   geom_area(size = 0, position = position_dodge(), alpha = 0.1) +
   geom_path(aes(color = binomial_name), size = 0.2, show.legend = FALSE) +
-  annotate("text", x = 11.2, y = 0.8, label = "One year of\ncollisions in October", family = "Scope One", size = 3, hjust = 0) +
+  annotate("text", x = 11, y = 0.8, label = "One year of\ncollisions in October", family = "Scope One", size = 3, hjust = 0) +
   annotate("segment", x = 10.8, y = 0.8, xend = 10, yend = 0.8, arrow = arrow(length = unit(0.2, "cm"))) +
   annotate("text", x = 3.5, y = 0.8, label = "Multiple years of\ncollisions in May", family = "Scope One", size = 3) +
   annotate("segment", x = 3.8, y = 0.8, xend = 5, yend = 0.8, arrow = arrow(length = unit(0.2, "cm"))) +
@@ -70,4 +70,6 @@ out <- wrap_plots(flower / legend, petals, ncol = 2, widths = c(1, 2)) +
       theme = theme_jk())
 
 ggsave(here("2019","week18", "tw18_plot.png"), out, width = 16, height = 10, type = "cairo")
+
+
 
