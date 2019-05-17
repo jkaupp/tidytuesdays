@@ -78,7 +78,7 @@ plots <- map2(summary, individual, ~wrap_plots(.x, .y, nrow = 1, widths = c(1, 1
   
 out <- wrap_plots(plots, ncol = 1) +
   plot_annotation(title = "Working to Two Sigma: Student Teacher Ratios Improving Since the 1970s",
-                  subtitle = str_wrap("Illustrated below is the average student to teacher ratio across each continent (left column) and region (right column).  Continent and region assigned from iso3c coding of country name and are consistent with the World Bank Dvelopment Indicators.", 190),
+                  subtitle = str_wrap("Illustrated below is the average student to teacher ratio across each continent (left column) and region (right column).  Continent and region assigned from iso3c coding of country name and are consistent with the World Bank Dvelopment Indicators.", 210),
                   caption = "Data: UNESCO Institute of Statistics | Graphic: @jakekaupp",
                   theme = theme_jk())
 
