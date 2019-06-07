@@ -73,5 +73,7 @@ out <- packed_bar + word_clouds +
                   theme = theme_jk()
                   )
 
-ggsave(here('2019', "week22", "clouds.png"), out, width = 8, height = 10)
+ggsave(here('2019', "week22", "tw22_plot.png"), out, width = 8, height = 12)
 
+ggsave(here('2019', "week22", "packed_bar.png"), packed_bar + labs(title = "Top 4 Countries Reviewed as Packed Bar Chart",
+                                                                   subtitle = str_wrap("The visualizion below is a packed bar chart, developed by Xan Gregg.  It combines the ordered nature of a bar chart with the total view and condensed nature of a treemap.  Colour denotes the focus, while the each gray sections represents each other reviwed country. This gives a sense of how many secondary categories there are, their magnitude and distribution. Additionally, since they are on the same scale of the focused bars we can even estimate some of the values from the length they span on the axis.", 100)), width = 8, height = 6)
