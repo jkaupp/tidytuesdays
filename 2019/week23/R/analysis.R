@@ -92,29 +92,6 @@ month_outline <- function(df) {
                              yend = wmonth[day == max(day)] -0.5,
                              line = "bottom2"))
   
-  # if (df$wday[df$day == min(df$day)] == 1) {
-  #    
-  #   top <- top1
-  #   left <- left1
-  #   
-  # } else {
-  #   
-  #   top <- bind_rows(top1, top2)
-  #   left <- bind_rows(left1, left2)
-  # }
-  # 
-  # 
-  # if (df$wday[df$day == max(df$day)] == 7) {
-  #   
-  #   bottom <- bottom1
-  #   right <- bind_rows(right1, right2) 
-  #   
-  # } else {
-  #   
-  #   bottom <- bind_rows(bottom1, bottom2) 
-  #   right <- bind_rows(right1, right2) 
-  # }
-  
   top <- bind_rows(top1, top2)
   left <- bind_rows(left1, left2)
   bottom <- bind_rows(bottom1, bottom2) 
