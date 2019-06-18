@@ -64,13 +64,13 @@ meteorite_wtg <- meteorites %>%
                   "text_color" = "black")) 
 
 
-meteorite_map <- ggplot(meteorite_wtg, aes(x, y, fill = per_meteorite, group = iso3c)) +
+meteorite_map <- ggplot(meteorite_wtg, aes(x, y, fill = odds, group = iso3c)) +
   geom_tile(color = "grey30", size = 0.1) +
   geom_text(aes(label = alpha.2, color = text_color), family = "Oswald") +
   labs(x = NULL,
        y = NULL) +
   scale_y_reverse() +
-  scale_fill_viridis_c(name = "Average Metorite Mass (kg, log scale)",option = "cividis", na.value = "white", trans = "log10", breaks = c(1, 10, 100, 1000, 10000, 100000), guide = guide_colourbar(title.position = "top", title.hjust = 0)) +
+  scale_fill_viridis_c(name = "Average Metorite Mass (kg, log scale)",option = "cividis", na.value = "white", breaks = c(1, 10, 100, 1000, 10000, 100000), guide = guide_colourbar(title.position = "top", title.hjust = 0)) +
   scale_color_identity() +
   theme_jk(grid = FALSE) +
   theme(axis.text = element_blank(),
@@ -99,9 +99,9 @@ packed_bars <- ggplot(plot_data) +
         axis.ticks.y = element_blank())
 
 
-out <-  packed_bars + meteorite_map  + plot_annotation(title = "You May Need More Than An Umbrella in Russia:  Where the Most, and Heaviest, Meteorites fall",
-                                                subtitle = str_wrap("On the left is a packed bar chart showing the top 10 regions struck by the most meteorites, while the tile map on the right shows the average meteorite mass across all regions.  Both measures have been scaled logathrimically to aid in comparability.", 200),
+out <- packed_bars + meteorite_map  + plot_annotation(title = "You May Need More Than An Umbrella in Russia:  Where the Most, and Heaviest, Meteorites fall",
+                                                subtitle = str_wrap("On the left is a packed bar chart showing the top 10 regions struck by the most meteorites, while the tile map on the right shows the average meteorite mass across all regions.  Both measures have been scaled logathrimically to aid in comparability.", 180),
                                                 caption = "Data: NASA | Graphic: @jakekaupp",
                                               theme = theme_jk())
 
-ggsave()
+ggsave(here("2019", "week24", "tw24_plot.png"), out, width = 14, height = 7)
