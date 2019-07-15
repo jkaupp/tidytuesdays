@@ -130,7 +130,7 @@ plot <- ggplot(plot_data) +
   geom_sf(aes(fill = fill), size = 0.05, color = "#2b2b2b") +
   scale_fill_identity() +
   labs(title = "If A UFO Flew Over The Desert And No One Was Around To See It, Would Senators Be Briefed?",
-       subtitle = str_wrap("A bivariate choropleth map by county illustrating the relationship between the UFO sightings (% of recorded sightings since 1911) and population density (people per sq. mile circa 2010).  Densely populated coastal and lakeside areas along with the sparsely populated southwest have the highest sightings, whereas the less populous midwest and Alaska have lower percentages of sightings.", 110),
+       subtitle = str_wrap("Below is a bivariate choropleth map by county illustrating the relationship between the UFO sightings (% of recorded sightings since 1911) and population density (people per sq. mile circa 2010).  Densely populated coastal and lakeside areas along with the sparsely populated southwest have the highest sightings, whereas the less populous midwest and Alaska have lower percentages of sightings.", 110),
        caption = "Data: NUFORC & 2010 US Census | Graphic: @jakekaupp",
        x = NULL,
        y = NULL) +
