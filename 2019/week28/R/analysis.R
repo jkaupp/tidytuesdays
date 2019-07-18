@@ -32,7 +32,7 @@ plot <- ggplot(data, aes(x = age, y = idx)) +
   labs(y = NULL,
        x = "Age",
        title = "Efficient Scorers Competing in the Womens World Cup by Position and Age",
-       subtitle = str_wrap("Goals per games played in international play by player age.  The highly efficient players at each position are a mix of newcomers and seasoned veterans, illustrating consistency in some players through their career.", 120),
+       subtitle = str_wrap("Goals per games played in international play by player age.  Red line illustrates the average goals per game at each position.  The highly efficient players at each position are a mix of newcomers and seasoned veterans, illustrating consistency in some players through their career.", 120),
        caption = "Data: data.world | Graphic : @jakekaupp")
 
 ggsave(here("2019", "week28", "tw28_plot.png"), plot = plot, width = 10, height = 6)
