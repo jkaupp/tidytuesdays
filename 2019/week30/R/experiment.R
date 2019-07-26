@@ -27,11 +27,12 @@ plot_data <- wildlife_impacts %>%
 big_flower <- ggplot(plot_data) +
   geom_ellipse(aes(x0 = x0, y0 = y0, a = percent, b = percent/3, angle = radians, fill = incident_year), alpha = 0.2, size = 0, color = "white") +
   scale_fill_viridis_c(option = "plasma", direction = 1) +
-  theme_jk(grid = FALSE) +
-  labs(x = NULL, y = NULL) +
+  theme_jk(grid = FALSE, plot_title_size = 12) +
+  labs(x = NULL, y = NULL, title = "National") +
   theme(axis.text = element_blank(),
         legend.position = "none",
-        panel.spacing = unit(0.1, "lines")) +
+        panel.spacing = unit(0.1, "lines"),
+        plot.title = element_text(hjust = 0.5)) +
   coord_equal() 
 
 state_flower <- big_flower +
@@ -68,7 +69,7 @@ flower_legend <- plot_data %>%
   geom_ellipse(aes(x0 = x0, y0 = y0, a = percent, b = percent/3, angle = radians, fill = incident_year), alpha = 0.5, size = 0.1, color = "white") +
   geom_mark_circle(aes(x = 2*x0, y = 2*y0, label = glue("{month.name[incident_month]}, {incident_year}"), description = "Single colour long petal represents 100% of collison event during this month and year", filter = incident_year == 1991 & incident_month == 3), expand = unit(1, "mm"), label.family = c("Oswald", "Scope One"), label.fontsize = 10, label.buffer = unit(5, "mm"), inherit.aes = FALSE) +
   geom_mark_circle(aes(x = x0, y = y0, label = glue("{month.name[incident_month]}, Multiple years"), description = "Multiple coloured petals represent repeated annual incidents during this month", filter = incident_year == 1996 & incident_month == 11), expand = unit(1, "mm"), label.family = c("Oswald", "Scope One"), label.fontsize = 10, label.buffer = unit(5, "mm"), inherit.aes = FALSE) +
-  geom_text(data = axes_labels(2.15), aes(x = x, y = y, label = label), inherit.aes = FALSE, family = "Oswald") +
+  geom_text(data = filter(axes_labels(2.15), label != "Feb"), aes(x = x, y = y, label = label), inherit.aes = FALSE, family = "Oswald") +
   scale_color_viridis_c(option = "plasma", direction = 1) +
   scale_fill_viridis_c(option = "plasma", direction = 1) +
   labs(x = NULL, y = NULL) +
@@ -93,10 +94,13 @@ finished_legend <- ggdraw() +
   draw_plot(flower_legend, 0, 0, 1, 1) +
   draw_plot(color_legend, 0.3, -0.175, 0.4, 0.4)
 
+state_flower_grid <- ggdraw() +
+  draw_plot(state_flower, 0, 0, 1, 1) + 
+  draw_plot(big_flower, 0.75, 0.15, 0.25, 0.25)
 
-out <- wrap_plots(finished_legend, state_flower, nrow = 1, widths = c(0.85, 1.2)) +
+out <- wrap_plots(finished_legend, state_flower_grid, nrow = 1, widths = c(0.85, 1.2)) +
   plot_annotation(title = "Seasonality of Wildlife-Aircraft Collisions by State",
-                  subtitle = str_wrap("Presented below is a petal chart of of wildlife collisions with aircraft across the US from 1990-2018. Below this is an inset legend showing assisting interpretation of the plots.  On the right are wildlife-aircraft collisions by state presented as small multiples, geographically arranged. Petal length is the annual proportion of collisions in a given month.  Smaller compact flowers illustrate states with collisions occuring year round, while the bigger flowers tend to see single or concentrated spikes of collision activity.  Flowers with diverse colours indicate repeated annual collisons while the single-hued flowers illustrate more sparse or isolated annual events.", 210),
+                  subtitle = str_wrap("Presented below is a petal chart of of wildlife collisions with aircraft across the US from 1990-2018. Below this is an inset legend showing assisting interpretation of the plots.  On the right are wildlife-aircraft collisions by state presented as small multiples, geographically arranged, with an inset flower representing the National data. Petal length is the annual proportion of collisions in a given month.  Smaller compact flowers illustrate states with collisions occuring year round, while the bigger flowers tend to see single or concentrated spikes of collision activity.  Flowers with diverse colours indicate repeated annual collisons while the single-hued flowers illustrate more sparse or isolated annual events.", 210),
                   caption = "Data: FAA Wildlife Strike Database | Graphic: @jakekaupp",
                   theme = theme_jk())
 
