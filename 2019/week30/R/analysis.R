@@ -5,6 +5,7 @@ library(ggforce)
 library(geofacet)
 library(patchwork)
 library(glue)
+library(cowplot)
 
 wildlife_impacts <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-23/wildlife_impacts.csv")
 
@@ -69,8 +70,8 @@ finished_legend <- ggdraw() +
   draw_plot(color_legend, 0.3, -0.17, 0.4, 0.4)
 
 out <- wrap_plots(finished_legend, state_flower_grid,  nrow = 1, widths = c(0.85, 1.2)) +
-   plot_annotation(title = "Seasonality Differences in Wildlife Collisions by State",
-                   subtitle = str_wrap("Presented below is a petal chart of of wildlife collisions, with an inset legend showing assisting interpretation.  Wildlife collisions at by state are presented as small multiples, geographically arranged.  Smaller compact flowers illustrate states with collisions occuring year round, while the bigger flowers tend to see single or concentrated spikes of collision activity.  Flowers with diverse colours indicate repeated annual collisons while the single-hued flowers illustrate more sparse or isolated annual events.", 210),
+   plot_annotation(title = "Seasonality of Wildlife-Aircraft Collisions by State",
+                   subtitle = str_wrap("Presented below is a petal chart of of wildlife collisions with aircraft, with an inset legend showing assisting interpretation.  Wildlife collisions by state are presented as small multiples, geographically arranged.  Smaller compact flowers illustrate states with collisions occuring year round, while the bigger flowers tend to see single or concentrated spikes of collision activity.  Flowers with diverse colours indicate repeated annual collisons while the single-hued flowers illustrate more sparse or isolated annual events.", 210),
                    caption = "Data: FAA Wildlife Strike Database | Graphic: @jakekaupp",
                    theme = theme_jk())
 
