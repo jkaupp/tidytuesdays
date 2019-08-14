@@ -29,7 +29,7 @@ plot_spiros <- function(data) {
 season <- sprintf("Season %s",unique(data$season))
   
 ggplot(data) +
-  geom_spiro(aes(R = ifelse(percent == 1, 0.1, 1 - percent), r = percent, d = radians, color = color, group = color)) +
+  geom_spiro(aes(R = ifelse(percent == 1, 0.1, 1 - percent), r = percent, d = radians, color = color, group = color), size = 0.1) +
   scale_color_identity() +
   theme_jk(grid = FALSE, plot_title_size = 8, strip_text_size = 8) +
   facet_wrap(~ title, ncol = 1, labeller = label_wrap_gen(15)) +
@@ -51,17 +51,17 @@ all_seasons <- wrap_plots(plots, nrow = 1) + plot_annotation(title = "Happy Acci
                                                              theme = theme_jk())
 
 
-ggsave(filename = here("2019", "week32", "tw32_plot.png"), plot = all_seasons, width = 30, height = 15)
+ggsave(filename = here("2019", "week32", "tw32_plot.png"), plot = all_seasons, width = 30, height = 15, type = "cairo")
 
 twitter <- map(plots, ~.x + theme(strip.text = element_blank()))
 
 
 all_seasons_twitter <- wrap_plots(twitter, nrow = 1) + plot_annotation(title = "Happy Accidents with 1960s Toys: Sprirographs of Palette Colors of Bob Ross Paintings for 31 Seaons",
-                                                             subtitle = str_wrap("Illustrated below is a spirograph tracing of the 15 distinct un-mixed palette colours used in each of Bob Ross' paintings.  The more colours used in a painting, the larger the spirograph and it appears similar to china pattern while those paintings with a more minimalist palette show up as smaller sparse rings.", 100),
+                                                             subtitle = str_wrap("Illustrated below is a spirograph tracing of the 15 distinct un-mixed palette colours used in each of Bob Ross' paintings.  The more colours used in a painting, the larger the spirograph and it appears similar to china pattern while those paintings with a more minimalist palette show up as smaller sparse rings.", 265),
                                                              caption = "Data: c/o @geokaramanis | Graphic: @jakekaupp",
                                                              theme = theme_jk())
 
 
-ggsave(filename = here("2019", "week32", "tw32_plot_for_twitter.png"), plot = all_seasons_twitter, width = 20, height = 8)
+ggsave(filename = here("2019", "week32", "tw32_plot_for_twitter.png"), plot = all_seasons_twitter, width = 20, height = 7)
 
 
