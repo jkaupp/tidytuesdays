@@ -38,13 +38,14 @@ explosions <- ggplot(plot_data, aes(x = c_sum, y = c_yield, color = country)) +
   geom_step(linetype = "solid", size = 1, direction = "hv") +
   geom_point(data = filter(plot_data, date_long %in% range(date_long))) +
   geom_text(data = filter(plot_data, date_long == last(date_long)), aes(label = year(ymd(date_long))), family = "Oswald", hjust = -0.5) +
+  geom_text(data = filter(plot_data, date_long == first(date_long)), aes(label = year(ymd(date_long))), family = "Oswald", nudge_y = c(10, -10)) +
   geom_mark_circle(data = items, aes(color = country, label = name, description = description), expand = unit(3, "mm"), label.margin = margin(5, 5, 5, 5, "mm"), con.colour = c("#0052A5", "#FF2400"), label.family = c("Oswald","Scope One"), label.fill = NA, label.minwidth = unit(50, "mm"), label.fontsize = 10, con.type = "straight") +
   scale_color_manual(values = c('USSR' = "#FF2400", "USA" = "#0052A5")) +
   scale_fill_manual(values = c('USSR' = "#FF2400", "USA" = "#0052A5")) +
   scale_y_continuous(labels = function(x) scales::comma(x, suffix = " MT")) +
   labs(x = 'Cumulative Number of Explosions',
        y = "Cumulative Yield (MT)",
-       title = "Nuclear Weapons Research Race During the Cold War.",
+       title = "Nuclear Weapons Research Race During And After The Cold War",
        subtitle = "Illustrated below is a step chart showing the number and yield of nuclear explosions for weapons research for <span style='color:#0052A5'>**USA**</span> and <span style='color:#FF2400'>**USSR**</span>.  During this race nearly<br>500 MT of nuclear explosions and accompanying fallout blanketed the world. The effects are still being dealt with to this date.",
        caption = "Data: Our World in Data | Graphic: @jakekaupp") +
   theme_jk(subtitle_family = "PT Serif",
