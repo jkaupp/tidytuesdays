@@ -2,9 +2,34 @@ library(tidyverse)
 library(here)
 library(ggforce)
 library(jkmisc)
+library(sf)
+library(osmdata)
 
 full_trains <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-02-26/full_trains.csv")
 
+available_tags("railway")
+
+railways <- st_read(here("2019", "week9", "data", "railways.shp"))
+
+q <- getbb("fr") %>%
+  opq(timeout=25*1000)%>%
+  add_osm_feature("railway")
+
+stations <- osmdata_sf(q)
+
+ggplot(stations$osm_lines) +
+  geom_sf()
+
+ggplot(railways) +
+  geom_sf() +
+  geom_sf(data=stations$osm_points,
+          inherit.aes =FALSE,
+          colour="#238443",
+          fill="#004529",
+          alpha=.5,
+          size=1,
+          shape=21) +
+  coord_sf(datum=NA)
 
 nat_trains <- full_trains %>% 
   filter(service == "National") %>% 

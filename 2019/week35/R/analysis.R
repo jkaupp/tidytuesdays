@@ -98,11 +98,18 @@ co_star_plot <- co_star_graph %>%
        subtitle = glue("Shown below is a co-occurance network of guest stars in The Simpsons, best explained as a 'Who co-stars together?'.<br> {subtitle_names} <br>are the most frequent guest stars in the series."),
        caption = "**Data**: Wikipedia via @datawookie | **Graphic**: @jakekaupp") +
   theme_jk(grid = FALSE,
-           subtitle_family = "PT Serif",
-           caption_family = "PT Serif") +
+           subtitle_family = "Lora",
+           caption_family = "Lora",
+           markdown = TRUE) +
   theme(legend.position = "none",
-        axis.text = element_blank(),
-        plot.subtitle = element_markdown(),
-        plot.caption = element_markdown())
+        axis.text = element_blank())
 
 ggsave(here("2019", "week35", "tw35_plot.png"), plot = co_star_plot, device = agg_png(), width = 9, height = 8)
+
+ggplot(mtcars, aes(x = mpg, y = disp)) +
+  geom_point() +
+  labs(title = paste0(highlight_text("This is bold", style = "bi"), "This isn't"),
+       subtitle = paste0(highlight_text("This is bold", style = "bi"), "This isn't")) +
+  theme_jk() +
+  theme(plot.title = ggtext::element_markdown(),
+        plot.subtitle = ggtext::element_markdown())
