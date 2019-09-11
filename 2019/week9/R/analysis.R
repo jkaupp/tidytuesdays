@@ -20,15 +20,10 @@ stations <- osmdata_sf(q)
 ggplot(stations$osm_lines) +
   geom_sf()
 
-ggplot(railways) +
-  geom_sf() +
-  geom_sf(data=stations$osm_points,
-          inherit.aes =FALSE,
-          colour="#238443",
-          fill="#004529",
-          alpha=.5,
-          size=1,
-          shape=21) +
+railways$geometry[[1]] %>% st_coordinates() %>% as_tibble -> line
+
+ggplot(line, aes(x = X, y = Y)) +
+  geom_link2() +
   coord_sf(datum=NA)
 
 nat_trains <- full_trains %>% 
