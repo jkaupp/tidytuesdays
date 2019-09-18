@@ -9,6 +9,7 @@ library(jkmisc)
 library(glue)
 library(ggtext)
 library(colorspace)
+library(ragg)
 
 legacy_data <- here("2019", "week37", "data", "Saferparks-dataset-legacy.csv") %>% 
   read_csv() %>% 
@@ -72,9 +73,9 @@ text_bc <- function(text, color) {
 }
 
 
-ggraph(graph, 'circlepack', weight = size) + 
+plot <- ggraph(graph, 'circlepack', weight = size) + 
   geom_node_circle(aes(fill = color)) + 
-  geom_node_text(aes(label = glue("{str_remove(name, ' - undefined')}:\n{size}"), filter = name %in% labels, family = "Oswald Light")) +
+  geom_node_text(aes(label = glue("{str_remove(name, ' - undefined')}:\n{size}"), filter = name %in% labels, family = "Oswald")) +
   scale_fill_identity() +
   labs(x = NULL,
        y = NULL,
@@ -86,6 +87,9 @@ ggraph(graph, 'circlepack', weight = size) +
         axis.text.y = element_blank(),
         plot.subtitle = element_markdown(),
         plot.caption = element_markdown()) 
+
+
+ggsave(here("2019", "week37", "tw_37plot.png"), plot, width = 9, height = 10, dev = agg_png())
 
 
   
