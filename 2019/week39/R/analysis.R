@@ -128,7 +128,7 @@ plot <- overall_diversity %>%
   filter(!ST %in% c("HI", "AK")) %>%
   ggplot() +
   geom_sf(aes(fill = ratio), color = 'white', size = 0.01) +
-  scale_fill_viridis_c("Diversity Ratio", option = "cividis", limits = c(0, 1), labels = scales::percent, na.value = "white") +
+  scale_fill_viridis_c("Alignment Ratio", option = "cividis", limits = c(0, 1), labels = scales::percent, na.value = "white") +
   coord_sf(crs = 26915) +
   labs(title = "Is Diversity In School Districts Reflected In The Diversity Of The General Population?",
        subtitle = glue("Shown below is a choropleth map illustrating the ratio between the Diversity Index of a School Population and the Diversity Index of the General Population in that School District in 2017.<br>
