@@ -52,8 +52,8 @@ plot <- ggplot(plot_data, aes(x = fct_reorder(park_name, revenue), y = revenue))
   geom_col(fill = "#5e81ac", size = 0.1) +
   coord_flip() +
   scale_y_continuous(labels = scales::dollar, expand = c(0.01,0)) +
-  labs(title = "Estimated National Park Revenue for 2018",
-       subtitle = str_wrap("Illustrated below is a bar chart of revenue from US National Parks in 2018.  Estimated Revenue calculated using per person admittance rates and total park visitors.", 95),
+  labs(title = "Estimated National Park Revenue from Fees for 2018",
+       subtitle = str_wrap("Illustrated below is a bar chart of fee revenue from US National Parks in 2018.  Estimated Revenue calculated using per person admittance rates and total park visitors.", 95),
        caption = "Data: www.nps.gov | Graphic: @jakekaupp",
        x = NULL,
        y = NULL) +
