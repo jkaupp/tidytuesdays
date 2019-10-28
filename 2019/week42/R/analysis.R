@@ -27,20 +27,23 @@ plot_data <- big_epa_cars %>%
   mutate(size = if_else(make == "Ford", 1, 0.5),
          make = factor(make, pull(top, make)),
          make = fct_relevel(make, "Ford", after = Inf),
-         make = fct_recode(make, `**Ford**` = "Ford"))
+         make = fct_recode(make, "**Ford**" = "Ford"))
+
 
 grid <- tibble(rank = 1:22)
 
-colors <- set_names(grey.colors(22), pull(top, make))
+colors <- set_names(grey.colors(22), pull(top, make) %>%
+                      factor() %>%
+                      fct_recode("**Ford**" = "Ford"))
 
-colors[["Ford"]] <- "#DD2A7B"
+colors[["**Ford**"]] <- "#DD2A7B"
 
 
 plot <- ggplot(plot_data, aes(x = year, y = rank)) +
   geom_segment(data = grid, aes(x = 1983, xend = 2021, y = rank, yend = rank), color = "#cccccc", alpha = 0.5, size = 0.1) +
   geom_xspline(aes(color = make, size = size), show.legend = FALSE) +
   geom_point(aes(fill = make), shape = 21, color = "white", show.legend = FALSE) +
-  geom_richtext(data = filter(plot_data, year == 2020), aes(label = make, x = 2021, color = make), hjust = 0, family = "Lora", size = 4, show.legend = FALSE,  fill = NA, label.color = NA, 
+  geom_richtext(data = filter(plot_data, year == 2020), aes(label = as.character(make), x = 2021, color = make), hjust = 0, family = "Lora", size = 4, show.legend = FALSE,  fill = NA, label.color = NA, 
                 label.padding = grid::unit(rep(0, 4), "pt")) +
   geom_text(data = filter(plot_data, year == 1984), aes(label = rank, x = 1983), hjust = 1, family = "Oswald", size = 4) +
   labs(x = NULL,
