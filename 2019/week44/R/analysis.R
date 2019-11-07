@@ -208,7 +208,7 @@ split_waffle_by_day <- activity_data %>%
         panel.spacing.x = unit(0.1, "lines")) 
 
 out <- wrap_plots(waffle_by_activity, waffle_by_day, split_waffle_by_day, ncol = 1) +
-  plot_annotation(title = "Breakdown of Observed Squirrel Activity from the NYC Squirrel Census",
+  plot_annotation(title = "Breakdown of Observed Squirrel Activity from the 2018 NYC Squirrel Census",
                   subtitle = glue("Below are  waffle charts of activity totals (I), daily totals (II) and exploded daily activity (III) views of observed squirrel activity.<br>{highlight_text('Foraging', '#DD2A7B', 'b')} is the most frequently observed activity recorded in the census, not surprising for squirrels in the fall."),
                   caption = "Data: **NYC Data Portal** | Graphic: **@jakekaupp**",
                   tag_levels = "I",
