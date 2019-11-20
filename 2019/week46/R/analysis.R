@@ -37,7 +37,7 @@ plot <- ggplot(plot_data, aes(x = x, y = y, fill = percent)) +
   labs(x = NULL,
        y = NULL,
        title = glue("Only {highlight_text('37.5%', '#fdca40', 'b')} of the Packages on CRAN contain {highlight_text('100%', '#1F262A', 'b')} R Code"),
-       subtitle = str_wrap("Each tile in the chart below represents one of the almost 15,000 R packages on CRAN. Fill colour indicates the percentage of R code within each package. While this may be a shock to some users, this purposeful extensibility, alongside the vibrant and welcoming community, is a defining characteristic of the language.", 120),
+       subtitle = str_wrap("Each tile in the chart below represents one of the almost 15,000 R packages on CRAN. Fill colour indicates the percentage of R code within each package. While this may be a shock to some users, this purposeful extensibility, alongside the vibrant and welcoming community, is a defining characteristic of the language.", 130),
        caption = "Data: **CRAN** | Graphic: **@jakekaupp**") +
   scale_fill_gradientn(colours = gunmetal_pal, name = "Percent R", labels = scales::percent) +
   theme_jk(grid = FALSE) +
@@ -46,6 +46,7 @@ plot <- ggplot(plot_data, aes(x = x, y = y, fill = percent)) +
         plot.caption = ggtext::element_markdown(),
         legend.position = "bottom",
         legend.key.width = unit(1, "cm"),
+        legend.justification = "top",
         legend.key.height = unit(2.5, "mm"))
 
 ggsave(here("2019", "week46", "tw46_plot.png"), width = 10, height = 6) 
