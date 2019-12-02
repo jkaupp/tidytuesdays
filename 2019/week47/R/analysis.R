@@ -57,4 +57,4 @@ plot <- ggplot(bird_sets, aes(x = x, id = id, split = y, value = n)) +
   theme(axis.text.y = element_blank(),
         plot.caption = element_markdown())
 
-ggsave(here("2019", "week47", "tw47_plot.png"), plot, width = 16, height = 12, dev = ragg::agg_png(), dpi = 150)
+ggsave(here("2019", "week47", "tw47_plot.png"), plot, width = 16, height = 12, dev = ragg::agg_png())
