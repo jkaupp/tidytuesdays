@@ -51,7 +51,7 @@ plot <- loans_by_type %>%
        y = NULL,
        title = str_to_title("The Stark Difference in How Student Loan Dollars are Repaid"),
        subtitle = glue("Illlustrated below is the categorization of debt repayments {highlight_text('Voluntary Payments', nord('mountain_forms')[1], 'b')}, {highlight_text('Wage Garnishments', nord('mountain_forms')[2], 'b')}, {highlight_text('Consolidation', nord('mountain_forms')[4], 'b')}
-       and {highlight_text('Rehabilitation', nord('mountain_forms')[5], 'b')}as a<br>percent of total repayments by year and fiscal quarter.  The continual high percentage of rehabilitated potentially indicates of how unsustainable<br>the current loan repayment structure is for a lot of graduates, enrolling these programs to avoid negative penalities to their personal credit."),
+       and {highlight_text('Rehabilitation', nord('mountain_forms')[5], 'b')} as a<br>percent of total repayments by year and fiscal quarter.  The continual high percentage of rehabilitated potentially indicates of how unsustainable<br>the current loan repayment structure is for a lot of graduates, enrolling these programs to avoid negative penalities to their personal credit."),
       caption =  "Data: **US Department of Education** | Graphic: **@jakekaupp**") +
   scale_fill_nord("mountain_forms") +
   theme_jk(grid = FALSE,
