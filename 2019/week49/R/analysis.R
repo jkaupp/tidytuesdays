@@ -29,7 +29,7 @@ map <- ggplot() +
   geom_sf(data = water$osm_polygons, fill = "#0077be", color = darken("#0077be")) +
   geom_sf(data = water$osm_lines, color = darken("#0077be")) +
   geom_bin2d(data = tickets_in, aes(x = lon, y = lat, fill = ..count..), binwidth = 0.001) +
-  geom_sf(data = roads$osm_lines, color = nord_palettes$snowstorm[[3]], size = 0.1)  +
+  geom_sf(data = roads$osm_lines, color = nord_palettes$snowstorm[[3]], size = 0.05)  +
   coord_sf(xlim = philly_bb[1,], 
            ylim = philly_bb[2,],
            expand = FALSE) +
@@ -37,7 +37,7 @@ map <- ggplot() +
   labs(x = NULL,
        y = NULL,
        title = "P H I L A D E L P H I A,  P A",
-       subtitle = glue("Illustrated below is a street level parking ticket heatmap of Philadelphia. {highlight_text('Yellow colours', last(viridis::plasma(5)), 'b')} indicate<br>higher ticketed areas and {highlight_text('Purple colours', nth(viridis::plasma(5), 2), 'b')} indicate areas ticketed less frequently."),
+       subtitle = glue("Illustrated below is a street level parking ticket heatmap of Philadelphia. Lighter colours indicate<br>{highlight_text('frequently ticketed areas', last(viridis::plasma(5)), 'b')} and darker colours indicate {highlight_text('areas ticketed less frequently', nth(viridis::plasma(5), 1), 'b')}."),
        caption = "**Data:** Open Data Philly | **Graphic:** @jakekaupp") +
   theme_jk(dark = TRUE,
            grid = FALSE,
