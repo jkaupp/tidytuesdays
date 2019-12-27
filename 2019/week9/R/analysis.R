@@ -31,3 +31,11 @@ plot <- ggplot(plot_data) +
   
 ggsave(here("2019", "week9", "tw9_plot.png"), plot, width = 16, height = 8)
   
+weeks <- here("2019") %>% 
+  fs::dir_ls() %>% 
+  str_extract("week\\d+") %>% 
+  parse_number() %>% 
+  sort()
+
+setdiff(1:52, weeks)
+
