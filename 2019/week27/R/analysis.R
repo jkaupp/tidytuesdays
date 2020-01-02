@@ -22,10 +22,10 @@ order <- media_franchises %>%
 
 named_colors <- set_names(unique(media_franchises$revenue_category), viridis(8))
 
-legend1 <- imap(named_colors[1:3], ~text_bc(.x, .y)) %>% 
+legend <- imap(named_colors[1:3], ~text_bc(.x, .y)) %>% 
   glue_collapse(sep = ', ') %>% 
-  glue("{.},<br>") %>% 
-  glue("{.} {glue_collapse(imap(named_colors[4:7], ~text_bc(.x, .y)), sep = ', ')}") %>% 
+  glue(",<br>") %>% 
+  glue(" {glue_collapse(imap(named_colors[4:7], ~text_bc(.x, .y)), sep = ', ')}") %>% 
   glue(" and {imap(named_colors[8], ~text_bc(.x, .y))}") 
 
 
@@ -37,7 +37,7 @@ plot <- media_franchises %>%
   labs(x = NULL,
        y = NULL,
        title = "Top 20 Franchises by Revenue",
-       subtitle = glue("Illustrated below is the revenue by category: {legend}"),
+       subtitle = glue("Illustrated below is the revenue by category: {legend}.<br> Merchandising is the undisputed king of revenue generation."),
        caption = "**Data**: Wikipedia | **Graphic**: @jakekaupp") +
   scale_fill_viridis_d() +
   scale_y_continuous(limits = c(0, 120), breaks = seq(0, 100, 25), labels = c("$0", "$25B","$50B", "$75B", "$100B"), expand = c(0, 0.1)) +
@@ -45,4 +45,4 @@ plot <- media_franchises %>%
            markdown = TRUE) +
   theme(legend.position = "none")
 
-ggsave(here('2019', "week27", "tw27_plot.png"), plot, width = 10, height = 8)
+ggsave(here('2019', "week27", "tw27_plot.png"), plot, width = 11, height = 8)
