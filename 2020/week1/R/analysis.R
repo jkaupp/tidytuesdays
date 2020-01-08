@@ -56,4 +56,4 @@ plot <- ggplot(sr_data) +
   theme(axis.text = element_blank(),
         legend.position = "none")
 
-ggsave(here("2019", "week53", "tw53_plot.png"), plot, width = 16, height = 8, device = ragg::agg_png())
+ggsave(here("2020", "week1", "tw1_plot.png"), plot, width = 16, height = 8, device = ragg::agg_png())
