@@ -1,13 +1,14 @@
 library(tidyverse)
-library(here)
 library(jkmisc)
 library(lubridate)
+library(here)
 library(jkmisc)
 library(ggforce)
 library(scales)
 library(patchwork)
 library(fs)
 library(janitor)
+library(glue)
 
 rainfall <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-07/rainfall.csv')
 
@@ -46,7 +47,7 @@ rain <- ggplot(yearly_rain, aes(x = year, y = rainfall)) +
 temp <- ggplot(yearly_temp, aes(x = year, y = temperature)) +
   geom_point(color = "#AF111C") +
   geom_path(color = "#AF111C") +
-  geom_mark_circle(aes(filter = year == 2019, label = glue("Avg. Max Temperature: {round(temperature, 1)}°C"), description = "Soaring temperatures ≈ 5°C above historic average."), label.family = c("Oswald", "Lora"), label.buffer = unit(4, "cm"), label.fontsize = 10) +
+  geom_mark_circle(aes(filter = year == 2019, label = glue("Avg. Max Temp.: {round(temperature, 1)}°C"), description = "Close to peak historic temperatures"), label.family = c("Oswald", "Lora"), label.buffer = unit(3, "cm"), label.fontsize = 10) +
   labs(x = NULL,
        y = NULL) +
   scale_x_continuous(limits = c(1900, 2020), breaks = seq(1900, 2020, 10)) +
