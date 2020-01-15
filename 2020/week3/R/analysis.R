@@ -78,6 +78,6 @@ big_plot <- ggraph(graph, layout = 'dendrogram', circular = TRUE) +
   coord_equal() 
 
 
-ggsave(here("2020", "week3", "tw3_plot.png"), plot = big_plot, width = 14, height = 14)
+ggsave(here("2020", "week3", "tw3_plot.png"), plot = big_plot, width = 14.5, height = 14.5)
 
 
