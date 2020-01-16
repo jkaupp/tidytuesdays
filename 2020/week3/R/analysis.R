@@ -33,18 +33,6 @@ nodes <- tibble(name = unique(c(edges$from, edges$to))) %>%
 
 graph <- tbl_graph(edges = edges, nodes = nodes, directed = TRUE)
 
-labels <- tibble(group = order,
-                 label = order,
-                 x = 0,
-                 y = 0,
-                 xp = c(-1, -1., 1, 1, 1, -1, -1, -1, -1, -1, 0),
-                 yp = c(1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 0),
-                 n = count(groups, from) %>% pull(n) %>% c(., NA_real_)) %>% 
-  mutate(percent = n/sum(n, na.rm = TRUE)) %>% 
-  mutate(label = str_remove(label, "simple-")) %>% 
-  mutate(label = str_to_upper(str_replace_all(label, "(?<=.)(?!$)", " ")))
- 
-
 stem_labels <- create_layout(graph, layout = 'dendrogram', circular = TRUE) %>% 
   filter(leaf == FALSE) %>% 
   mutate(group = name,
@@ -62,7 +50,7 @@ big_plot <- ggraph(graph, layout = 'dendrogram', circular = TRUE) +
   geom_node_text(aes(x = x*3, y = y*3, label = label, color = group, hjust = ifelse(between(node_angle(x,y), 90, 270), 1, 0)), size = 5, family = "Oswald", data = stem_labels)  +
   geom_node_text(aes(x = x*2.1, y = y*2.1, label = scales::percent(percent), color = group, hjust = ifelse(between(node_angle(x,y), 90, 270), 1, 0)), size = 5, family = "Oswald", data = stem_labels)  +
   geom_node_point(aes(filter = leaf, colour = group, alpha = 0.2)) +
-  annotate("text", x = 0, y = 0, label = "P A S S W O R D S", family = "Oswald", size = 10, color = "white") +
+  annotate("text", x = 0, y = 0, label = "B A D   P A S S W O R D S", family = "Oswald", size = 10, color = "white") +
   scale_colour_paletteer_d("vapoRwave::vapoRwave") +
   labs(x = NULL, 
        y = NULL,
