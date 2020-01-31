@@ -39,7 +39,8 @@ plot <- ggplot(bg, aes(x = name, y = value)) +
   labs(title = "Characteristics Of My Favourite Arcade Songs",
        subtitle = glue("Ilustrated below is a parallel coordinates plot of Spotify playlist data showing normalized measurements for a variety of audio features<br>accessible via Spotify API.  I was introduced {highlight_text('Rush', '#f18701', 'b')}, {highlight_text('Led Zeppelin', '#f7b801', 'b')} and {highlight_text('The Who', '#f35b04', 'b')} at my local arcade, and look back fondly on those times.<br>These songs still have me look for a quarter and a Tempest machine any time I hear them."),
        x = NULL,
-       y = NULL) +
+       y = NULL,
+       caption = "**Data**: Spotify | **Graphic**: @jakekaupp") +
   theme_jk(grid = "X",
            dark = TRUE,
            markdown = TRUE) +
