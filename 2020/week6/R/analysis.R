@@ -86,7 +86,7 @@ dots <- full_games %>%
 
 
 plot <- wrap_plots(dots, areas, ncol = 1, heights = c(0.75, 0.25)) + plot_annotation(title = "Did NFL Rule Changes to Boost Scoring and Make the Game More Exciting Actually Work?",
-                                                                           subtitle = "Illustrated below is a sina plot (combined strip and violin plots) showing the combined score of each NFL game from 1966 to 2019 seasons.  The white line indicates the average combined score for each<br>season.  The area charts below show binned combined scores, circles indicating seasons the rules were changed. From both charts we can see that average scores have been rising, specifically in the 41-60 and 61-80 categories rising<br>since the rule changes.",
+                                                                           subtitle = "Illustrated below is a sina plot (combined strip and violin plots) showing the combined score of each NFL game from 1966 to 2019 seasons.  The white line indicates the average combined score for each<br>season.  The area charts below show binned combined scores, circles indicating seasons the rules were changed. From both charts we can see that average scores have been rising, specifically in the<br>41-60 and 61-80 categories rising since the rule changes.",
                                                                            caption = "**Data**: Pro Football Reference | **Graphic**: @jakekaupp",
                                                                            theme = theme_jk(dark = TRUE, markdown = TRUE))
 
