@@ -91,7 +91,7 @@ plot <- ggplot(plot_data, aes(x = name, y = value)) +
   labs(x = NULL,
        y = NULL,
        title = expression(paste('While Low in Consumption, Meat & Dairy Staggeringly Outweigh Other Foods in Their Contribution to C', O[2],' Emissions',sep='')),
-       subtitle = glue("Illustrated below is a slopegraph contrasting **consumption** and **carbon dioxide emmissions** in different food products measured in 2017.<br>{highlight_text('Foods with high emmissions', '#DD2A7B', 'b')} relative to their consumption are beef, lamb, goats, pork along with milk and cheese. {highlight_text('Foods with low emmissions', '#81a1c1', 'b')}<br>relative to their consumption include grains, nuts, beans, eggs, fish and poultry."),
+       subtitle = glue("Illustrated below is a slopegraph contrasting **consumption** and **carbon dioxide emmissions** in different food products measured in 2019.<br>{highlight_text('Foods with high emmissions', '#DD2A7B', 'b')} relative to their consumption are beef, lamb, goats, pork along with milk and cheese. {highlight_text('Foods with low emmissions', '#81a1c1', 'b')}<br>relative to their consumption include grains, nuts, beans, eggs, fish and poultry."),
        caption = "**Data**: nu3.de | **Graphic**: @jakekaupp") +
   theme_jk(grid = FALSE,
            dark = TRUE) +
