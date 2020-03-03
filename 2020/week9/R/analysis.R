@@ -123,9 +123,9 @@ history <- immunization_data %>%
        title = NULL,
        subtitle = NULL,
        caption = NULL) +
-  # theme_jk(base_family = "Oswald",
-  #          grid = "XY",
-  #          markdown = TRUE) +
+  theme_jk(base_family = "Oswald",
+           grid = "XY",
+           markdown = TRUE) +
   theme(plot.background = element_rect(fill = "#eff1f3", color = "#eff1f3"),
         axis.text.x = element_markdown(color = "#7d8491"),
         axis.text.y = element_markdown(color = "#7d8491"),
