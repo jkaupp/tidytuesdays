@@ -52,8 +52,8 @@ out <- ggplot(us_cartogram) +
   scale_fill_gradient("Barrels per capita", low = "#2d3047", high = "#1a936f",  breaks = c(0.01, 0.25, 0.5, 0.75, 1.1), labels = c("<1/4", "1/4", "1/2", "3/4", "1+"), guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow =1 )) +
   labs(x = NULL,
        y = NULL,
-       title = "Barrels of Beer Per Captia in the Mainland United States in 2019",
-       subtitle = "Shown below is a cartogram, with state size distorted to show the porportion of per capita beer production in 2019.  Colorado is the state with the greatest beer\nproduction per capita, with more than a single barrel of beer for each person.",
+       title = "Barrels of Beer Per Capita in the Mainland United States in 2019",
+       subtitle = "Shown below is a cartogram, with state size distorted to show the porportion of per capita beer production in 2019.  Colorado is the state with the greatest<br>beer production per capita, with more than a single barrel of beer produced for each person in the state.",
        caption = "**Data**: ttb.gov & census.gov | **Graphic**: @jakekaupp") +
   theme_jk(grid = FALSE,
            markdown = TRUE) +
