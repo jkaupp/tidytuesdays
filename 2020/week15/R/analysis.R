@@ -10,6 +10,7 @@ library(ggmap)
 library(ggtext)
 library(magick)
 
+
 scrape_stage <- function(url) {
  
    read_html(url) %>% 
@@ -73,6 +74,10 @@ eu <- here("2020", "week15", "data", "eu", "european-union-countries.shp") %>%
   read_sf() %>% 
   st_union()
 
+sz <- here("2020", "week15", "data", "switzerland", "ch_100km.shp") %>% 
+  read_sf() %>% 
+  st_union()
+
 france <- here("2020", "week15", "data", "france", "REGION_CARTO.shp") %>% 
   read_sf() %>% 
   st_simplify() %>% 
@@ -80,6 +85,7 @@ france <- here("2020", "week15", "data", "france", "REGION_CARTO.shp") %>%
 
 map <- ggplot(eu) + 
   geom_sf(fill = "#565b5f", color = "#15171e", size = 0) +
+  geom_sf(data = sz, fill = "#565b5f", color = "#15171e", size = 0) +
   geom_sf(data = france, fill = darken("#565b5f"), color = "#FFFFFF", size = 0.2) +
   geom_point(data = geo_points, aes(x = lon, y = lat), shape = 21, fill = "#FEC801", color = darken("#FEC801", 0.2), alpha = 1) +
   annotate(GeomRichText, x = -7.5, y = 47.2, label = glue("{highlight_text('M A P P I N G', '#FFFFFF', size = 50)}"), label.color = NA, fill = NA, family = "Roboto Condensed Light") +
@@ -104,8 +110,8 @@ map <- ggplot(eu) +
 ggsave(here("2020", "week15", "tw15_plot.png"), map, width = 12, height = 10, device = ragg::agg_png())
 
 image_read(here("2020", "week15", "tw15_plot.png"), "png") %>% 
-  image_crop('3400x3000+110') %>% 
-  image_write(path = here("2020", "week15", "tw15_plot2.png"), format = "png")
+  image_trim() %>% 
+  image_write(path = here("2020", "week15", "tw15_plot.png"), format = "png")
 
 
 
