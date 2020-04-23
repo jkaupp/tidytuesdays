@@ -3,7 +3,7 @@ pack_bars <- function(data, number_rows, value_column, fill_color = "#4B384C", b
 
 value_column <- ensym(value_column)  
   
-color_bar_data <- summary_data %>% 
+color_bar_data <- data %>% 
   top_n(number_rows, !!value_column) %>% 
   arrange(desc(!!value_column))
 
@@ -18,7 +18,7 @@ color_bars <- color_bar_data %>%
          ymin = map_dbl(1:number_rows, ~1 - bar_h*(.x-1)),
          ymax = map_dbl(1:number_rows, ~1 - bar_h*.x))
 
-gray_bar_data <- summary_data %>% 
+gray_bar_data <- data %>% 
   anti_join(color_bar_data) %>% 
   arrange(desc(!!value_column))
 
