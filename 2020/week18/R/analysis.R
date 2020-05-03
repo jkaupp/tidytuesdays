@@ -35,12 +35,15 @@ top10 <- money %>%
   filter(corr_weekly_gross == max(corr_weekly_gross)) %>% 
   ungroup() %>% 
   top_n(10, corr_weekly_gross) %>% 
-  arrange(desc(corr_weekly_gross)) %>% 
+  arrange(desc(corr_weekly_gross)) 
+
+order <- pull(top10, show)
+
+top10 <- top10 %>% 
   left_join(long_shows) %>% 
   mutate(idx = show,
          idx = factor(show, order, order))
   
-order <- pull(top10, show)
 
 plot_data <- imap_dfr(pull(top10, show), ~left_join(money, select(top10,  show, corr_weekly_gross, runs, shows, -corr_weekly_gross), by = "show") %>%
           mutate(color = if_else(show == .x, "#AA3377", NA_character_),
@@ -68,7 +71,7 @@ lines <- tibble(show = pull(top10, show),
   filter(show %in% c("Chicago", "Jersey Boys"))
 
 
- ggplot(plot_data, aes(x = week_ending, y = corr_weekly_gross, group = show, color = color, alpha = alpha, size = size)) +
+ plot <- ggplot(plot_data, aes(x = week_ending, y = corr_weekly_gross, group = show, color = color, alpha = alpha, size = size)) +
   geom_hline(yintercept = seq(0, 800000000, 200000000), alpha = 0.1, size = 0.2, color = "#eceff4") +
   geom_step() +
   geom_point(data = top10, aes(x = week_ending, y = corr_weekly_gross, group = show), inherit.aes = FALSE, color = "#AA3377") +
@@ -79,7 +82,7 @@ lines <- tibble(show = pull(top10, show),
   labs(x = NULL,
        y = NULL,
        title = "Gross Earnings Trajectories of the Top 10, Multi-Run Broadway Productions",
-       subtitle = glue("Shown below is a step graph of the cummulative earnings (corrected for inflation) of broadway shows with more than four runs from 1985 to 2020. {highlight_text('The top 10 shows', '#AA3377', 'b', 16)} are shown against the field.<br>Of the newer shows, Hamilton exhibits the same trend to break the $400 million barrier."),
+       subtitle = glue("Shown below is a step graph of the cummulative earnings (corrected for inflation) of broadway shows with more than four runs from 1985 to 2020. {highlight_text('The top 10 shows', '#AA3377', 'b', 18)} are shown against the field.<br>Of the newer shows, Hamilton exhibits the same trend to break the $400 million barrier."),
        caption = "**Data**: Playbill via @alexcookson | **Graphic**: @jakekaupp") +
   facet_wrap(~idx, nrow = 2, as.table = TRUE) +
   scale_color_identity() +
@@ -88,9 +91,10 @@ lines <- tibble(show = pull(top10, show),
   theme_jk(grid = FALSE,
            markdown = TRUE,
            dark = TRUE, 
-           plot_title_family = "Anton",
            plot_title_size = 24) +
   theme(axis.text.y = element_blank(),
         strip.text = element_blank(),
         axis.text.x = element_markdown(color = alpha("#eceff4", 0.2), family = "Antonio", size = 12, vjust = 1))
 
+ggsave(here("2020", "week18", "tw18_plot.png"), plot, width = 16, height = 10, device = ragg::agg_png()) 
+ 
