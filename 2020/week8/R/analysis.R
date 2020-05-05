@@ -81,7 +81,7 @@ plot <- ggplot(plot_data, aes(x = name, y = value)) +
   geom_text(data = filter(labels, name == "consumption"), aes(label = food_category, x = 0.95), family = "Oswald", hjust = 1, color = "white") +
   geom_text(data = filter(labels, name == "co2_emmission"), aes(label = food_category, x = 2.05), family = "Oswald", hjust = 0, color = "white") +
   geom_text(data = other_foods_co2, aes(label = label, x = 2.2), family = "Oswald",  hjust = 0, color = "white") +
-  geom_text(data = other_foods_co2, aes(label = label, x = 0.8), family = "Oswald",  hjust = 1, nudge_y = 10, color = "white") +
+  geom_text(data = other_foods_consumption, aes(label = label, x = 0.8), family = "Oswald",  hjust = 1, nudge_y = -1000, color = "white") +
   annotation_custom(b1) + 
   annotation_custom(b2) + 
   scale_x_discrete(breaks = c("consumption", "co2_emmission"), labels = c("Consumption", expression(paste("C", O[2]," Emissions",sep=""))), position = "top") +
