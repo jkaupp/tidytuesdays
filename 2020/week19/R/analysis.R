@@ -93,9 +93,9 @@ new_fish <- nh_fish %>%
 
 sunrise <- colorRampPalette(c("#062B79", "#16498A", "#5995B7", "#FAFBBD", "#FDE050", "#F1B351"))(12)
 
-sunset <- colorRampPalette(c("#F2671F", "#C91B26", "#9C0F5F", "#60047A", "#160A47"))(7)
+sunset <- c("#F2671F", "#C91B26", "#9C0F5F", "#60047A")
   
-midnight <- c("#855988", "#6B4984", "#483475", "#2B2F77", "#141852", "#070B34")
+midnight <- colorRampPalette(c("#855988", "#6B4984", "#483475", "#2B2F77", "#141852", "#070B34"))(10)
 
 colors <- set_names(c(sunrise, sunset, midnight, "grey80"), c(0:24, 99))
 
@@ -138,4 +138,38 @@ sea_plot <- plot_data %>%
         strip.text.x = element_markdown(family = "FinkHeavy"),
         axis.text = element_markdown(family = "FinkHeavy"))
 
+mc_plot_data <- new_fish %>% 
+  left_join(labels) %>% 
+  mutate(fill = time) %>% 
+  mutate(months_num = as.numeric(months_num)) %>% 
+  complete(nesting(name, number, region, label, location), months_num = 1:12, time = 0:24, fill = list(fill = 99))
+
+
+multi_sea_plot <- mc_plot_data %>% 
+  filter(str_detect(location, "Sea")) %>%
+  ggplot(aes(x = time, y = months_num)) +
+  geom_tile(aes(fill = factor(fill)), show.legend = FALSE, color = "#39383D", size = 0.2) +
+  facet_wrap(~label, ncol = 5) +
+  scale_fill_manual(values = colors) +
+  scale_y_continuous(expand = c(0.1, 0), breaks = 1:12, labels = month.abb, trans = "reverse") +
+  scale_x_continuous(breaks = c(0, 6, 12, 18, 24), labels = icons[c("moon", "sunrise", "sun", "sunset", "high_moon")]) +
+  #coord_equal() +
+  labs(x = NULL, 
+       y = NULL,
+       title = "The Fisherman's Almanac: Deep Sea Fishing in Animal Crossing New Horizons",
+       subtitle = "A handy depiction of where and when to fish in the seas of **northern regions** whether for sport, collections or shells.",
+       caption = "**Data**: nookipedia.com | **Graphic**: @jakekaupp") +
+  theme_jk(grid = FALSE,
+           ticks = TRUE,
+           markdown = TRUE,
+  ) +
+  theme(plot.background = element_rect(fill = "#EBEDDF", color = NA),
+        plot.title.position = "plot",
+        plot.caption.position = "plot",
+        strip.text.x = element_markdown(family = "FinkHeavy"),
+        axis.text = element_markdown(family = "FinkHeavy"))
+
+
 ggsave(here("2020", "week19", "tw19_sea_plot.png"), sea_plot, width = 18, height = 14)
+
+ggsave(here("2020", "week19", "tw19_mc_sea_plot.png"), multi_sea_plot, width = 18, height = 14)
