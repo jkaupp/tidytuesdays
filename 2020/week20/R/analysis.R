@@ -69,7 +69,7 @@ facets <- ggplot(plot_data, aes(x = idx, y = n_tree)) +
         axis.text.y = element_blank(),
         strip.text.x = element_text(hjust = 0.5,  color = darken("#56B1F7", 0.4)))
 
-plot <- main + facets + plot_annotation(title = "The Impact of Volcanic Eurptions on Measurements of Tree Ring Deformity by Century",
+plot <- main + facets + plot_annotation(title = "The Impact of Volcanic Eruptions on Measurements of Tree Ring Deformity by Century",
                                 subtitle = glue("Illustrated below is a circular area chart of the z-score of tree ring deformity relative to 1000-1099 CE, broken out into facets by century.  Each individual<br>century forms its own ring and in each facet with the {highlight_text('century of focus', darken('#56B1F7', 0.4), 'b')} is highlighted and plotted against other centuries."),
                                 caption = "**Data**: doi.org/10.1038/nature14565 | **Graphic**: @jakekaupp",
                                 theme = theme_jk(markdown = TRUE) +
