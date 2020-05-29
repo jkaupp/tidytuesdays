@@ -91,4 +91,9 @@ plot <- vodka + gin + oj + plot_annotation(title = "Top 3 Ingredients in Cocktai
                                                     markdown = TRUE))
 
 ggsave(here("2020", "week22", "tw22_plot.png"), plot, width = 16, height = 10)
+
+magick::image_read(here("2020", "week22", "tw22_plot.png")) %>% 
+  magick::image_crop() %>% 
+  magick::image_write(here("2020", "week22", "tw22_plot.png"))
+
                                    
