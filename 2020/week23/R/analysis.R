@@ -54,6 +54,7 @@ plot <- ggplot(plot_data, aes(x = publication_date, y = value)) +
            markdown = TRUE) +
   theme(legend.position = "none",
         plot.title.position = "plot",
-        plot.caption.position = "plot")
+        plot.caption.position = "plot",
+        plot.background = element_rect(fill = '#F2FDFF'))
 
 ggsave(here("2020", "week23", "tw23_plot.png"), plot, width = 14, height = 8, device = ragg::agg_png()) 
