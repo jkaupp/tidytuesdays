@@ -82,7 +82,7 @@ plot <- ggplot(map) +
   geom_sf(fill = "#eceff4", color = "grey15", size = 0.1) +
   geom_point(data = points, aes(x = X, y = Y), size = 0.1, color = "#A80303") +
   geom_curve(data = arcs_final, aes(x = X.x, y = Y.x, xend = X.y, yend = Y.y), alpha = 0.2, size = 0.2, color = "#A80303") +
-  annotate(geom = 'text', x = -150, y = 0, label = total, color = "#A80303", family = "Anton", size = 10, hjust = 0) +
+  annotate(geom = 'text', x = -150, y = 0, label = glue("Over {total}"), color = "#A80303", family = "Anton", size = 10, hjust = 0) +
   annotate(geom = 'text', x = -150, y = -12, label = "Africans Enslaved\nFrom 1514 to 1866", color = "#eceff4", family = "Oswald", size = 6, hjust = 0) +
   annotate(geom = 'text', x = -50, y = -39, label = "Slave Routes: Tides of Inhumanity and Oppression", color = "#A80303", family = "Anton", size = 10, hjust = 0) +
   annotate(geom = 'text', x = -50, y = -47, label = "#J U N E T E E N T H #B L A C K L I V E S M A T T E R", color = "#eceff4", family = "Lato", size = 6, hjust = 0) +
