@@ -8,6 +8,7 @@ library(jkmisc)
 library(scales)
 library(ggtext)
 library(glue)
+library(magick)
 
 blackpast <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-06-16/blackpast.csv')
 slave_routes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-06-16/slave_routes.csv')
@@ -102,4 +103,3 @@ plot <- ggplot(map) +
         plot.background = element_rect(fill = "grey15"))
 
 ggsave(here("2020", "week25", "tw25_plot.png"), plot, width = 16, height = 10)
-
