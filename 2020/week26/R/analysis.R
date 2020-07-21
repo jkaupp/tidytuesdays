@@ -93,7 +93,7 @@ facet_lines <- tibble(study_site = c("Burnt Pine", "Moberly"),
 step <- ggplot() +
   geom_step(data = background, aes(x = timestamp, y = cum_dist, group = animal_id), color = "#f4f4f5", alpha = 0.1) +
   geom_step(data = total_distances, aes(x = timestamp, y = cum_dist, group = animal_id, color = color)) +
-  geom_text(data = labels, aes(x = timestamp, y = cum_dist, label = toupper(study_site), color = color), family = "Anton", size = 10, hjust = 0, vjust = 0) +
+  geom_text(data = labels, aes(x = timestamp, y = cum_dist, label = toupper(study_site), color = color), family = "Anton", size = 8, hjust = 0, vjust = 0) +
   geom_text(data = facet_lines, aes(x = timestamp, y = cum_dist, label = label), family = "Oswald", size = 3, color = "white", hjust = 0.25, vjust = 1.2) +
   scale_y_continuous(labels = number_format(suffix = " km", scale = 1/1000), expand = c(0,0)) +
   scale_x_datetime(date_labels = "%Y", limits = c(as_datetime("2000-01-01 00:00:01 UTC"), as_datetime("2017-01-01 00:00:01 UTC"))) +
@@ -144,9 +144,10 @@ stack <- wrap_plots(map, bar, nrow = 2 , heights = c(0.9, 0.1))
 
 out <- wrap_plots(stack, step, nrow = 1, widths = c(0.33, 0.67)) +  
   plot_annotation(title = "In British Columbia the Caribou Travel Thousands of Kilometers Migrating Between Winter and Summer Ranges",
-                  subtitle = str_break(glue("Caribou heards located farthest away from the central valleys face larger migrations between summer and winter habitats than other herds, as illustrated by the step graph below. The indiviudal step lines represent a single caribou in the herd, {highlight_text('colored lines', '#fb5a4b', 'b')} represent the specific herd and {highlight_text('white lines', '#FFFFFF', 'b')} represent caribou across all herds. Hue on both the map and step graph indicates the average distance travelled by each herd."), 80),
+                  subtitle = str_break(glue("Caribou heards located farthest away from the central valleys face larger migrations between summer and winter habitats than other herds, as illustrated by the step graph below. The indiviudal step lines represent a single caribou in the herd, {highlight_text('colored lines', '#fb5a4b', 'b')} represent the specific herd and {highlight_text('white lines', '#FFFFFF', 'b')} represent caribou across all herds. Hue on both the map and step graph indicates the average distance travelled by each herd."), 280),
                   caption = "**Data**: movebank.org | **Graphic**: @jakekaupp",
     theme = theme_jk(dark = TRUE,
+                     plot_title_family = "Anton",
                      markdown = TRUE)) 
 
 ggsave(here('2020', 'week26', 'tw26_plot.png'), out, width = 20, height = 10)
