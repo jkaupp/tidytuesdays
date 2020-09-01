@@ -31,10 +31,14 @@ counts <- ingredient_list %>%
   mutate(color = case_when(ingredient == "tomatillos" ~ "#f8333c",
                            ingredient == "rainbow carrots" ~ "#f8333c",
                            ingredient == "figs" ~ "#f8333c",
+                           ingredient == "almonds" ~ "#00B295",
+                           ingredient == "animal crackers" ~ "#00B295",
                            TRUE ~ "black")) %>% 
   mutate(ingredient = case_when(ingredient == "tomatillos" ~ glue("**{ingredient}**"),
                            ingredient == "rainbow carrots" ~ glue("**{ingredient}**"),
                            ingredient == "figs" ~ glue("**{ingredient}**"),
+                           ingredient == "almonds" ~ glue("**{ingredient}**"),
+                           ingredient == "animal crackers" ~ glue("**{ingredient}**"),
                            TRUE ~ ingredient)) 
 
 
@@ -47,7 +51,11 @@ edge_set_two <- left_join(edge_lists[[2]], edge_lists[[3]], by = "ingredient") %
   select(ingredient, x = type.x, xend = type.y, y = y_pos.x, yend = y_pos.y)
 
 edge_sets <- bind_rows(edge_set_one, edge_set_two) %>% 
-  mutate(color = case_when(str_detect(ingredient, "\\*\\*") ~ "#f8333c",
+  mutate(color = case_when(ingredient == "**tomatillos**" ~ "#f8333c",
+                           ingredient == "**rainbow carrots**" ~ "#f8333c",
+                           ingredient == "**figs**" ~ "#f8333c",
+                           ingredient == "**almonds**" ~ "#00B295",
+                           ingredient == "**animal crackers**" ~ "#00B295",
                            TRUE ~ "black")) %>% 
   mutate(size = case_when(str_detect(ingredient, "\\*\\*") ~ 1,
                           TRUE ~ 0.1))
@@ -69,7 +77,7 @@ plot <- ggplot() +
   labs(x = NULL,
        y = NULL,
        title = "Ingredient Frequency in Chopped Across All Seasons",
-       subtitle = str_break(glue("Illustrated below is a visualization of ingredient frequency/use in appetizers, entrees and desserts across all seasons of Chopped.  Only ingredients that appear in each menu item are shown. Ingredients higher on the list are used with greater frequency than those lower on the list.  Relative position in each list is indicated by curved lines, and the {highlight_text('top items in each category','#f8333c', 'b', 20)} are highlighted."), 100),
+       subtitle = str_break(glue("Illustrated below is a visualization of ingredient frequency/use in appetizers, entrees and desserts across all seasons of Chopped.  Only ingredients that appear in each menu item are shown. Ingredients higher on the list are used with greater frequency than those lower on the list.  Relative position in each list is indicated by curved lines, and the {highlight_text('top','#f8333c', 'b', 20)} and {highlight_text('bottom','#00B295', 'b', 20)} items in each category are highlighted."), 100),
        caption = "**Data**: Kaggle | **Graphic**: @jakekaupp") +
   theme(plot.background = element_rect(fill = "#fbf7f4"),
         plot.title = element_markdown(hjust = 0.5),
