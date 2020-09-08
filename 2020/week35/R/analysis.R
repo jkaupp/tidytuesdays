@@ -19,7 +19,7 @@ world_tractor <- tractors %>%
   rename(tractors_per = tractors_per_100_sq_km_arable_land) %>% 
   select(year, country_code = code, tractors_per, total_population_gapminder) %>% 
   inner_join(arable_land) %>% 
-  mutate(tractors = (tractors_per * arable_land)/total_population_gapminder) %>%
+  mutate(tractors = tractors_per/100*(arable_land/total_population_gapminder)) %>%
   mutate(fill = "#367c2b") %>% 
   filter(year == 2000, !is.na(tractors))
   
