@@ -31,14 +31,16 @@ flower <- ggplot(plot_data, aes(x = month, y = percent, fill = binomial_name)) +
        y = NULL,
        title = "Overall") +
   theme_jk(dark = FALSE, grid = "X", strip_text_size = 10, plot_title_size = 14) +
-  theme(axis.text = element_blank(),
+  theme(axis.text.y = element_blank(),
         legend.position = "none")
 
 petals <- flower +
   aes(group = year) +
   geom_path(aes(color = binomial_name), size = 0.2, show.legend = FALSE) +
   labs(title = "By Species") +
-  facet_wrap(~binomial_name, labeller = label_wrap_gen(10), nrow = 7) 
+  facet_wrap(~binomial_name, labeller = label_wrap_gen(10), nrow = 7)  +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank())
 
 legend <- plot_data %>% 
   filter(binomial_name == "Setophaga fusca") %>% 
@@ -63,13 +65,13 @@ legend <- plot_data %>%
   theme(axis.text.y = element_blank(),
         legend.position = "none")
 
-out <- wrap_plots(flower / legend, petals, ncol = 2, widths = c(1, 2)) +
+out <- wrap_plots(flower / legend, plot_spacer(), petals, ncol = 3, widths = c(1, 0.2, 2)) +
   plot_annotation(title = "Seasonality of Bird Collisions in Chicago",
                   subtitle = str_wrap("Presented below is a petal chart of of bird collisions, with instructions on how to interpret this chart in the lower left.  The upper left flower represents collisions recorded across all years and species, with individual species presented as small multiple flowers on the right.", 220),
                   caption = "Data: Winger et al. (2019) Nocturnal flight-calling behaviour predicts vulnerability to artificial light in migratory birds. Proceedings of the Royal Society B 286(1900): 20190364. https://doi.org/10.1098/rspb.2019.0364 | Graphic: @jakekaupp",
-      theme = theme_jk())
+      theme = theme_jk() + theme(plot.title.position = "plot"))
 
-ggsave(here("2019","week18", "tw18_plot.png"), out, width = 16, height = 10, type = "cairo")
+ggsave(here("2019","week18", "tw18_plot.png"), out, width = 16, height = 10, dev = ragg::agg_png())
 
 
 
