@@ -93,4 +93,4 @@ plot <- ggplot(atla_stream, aes(x = episode, y = y_pos)) +
         axis.text.x = element_blank(),
         axis.text.y = element_blank())
 
-ggsave(here('2020', "week32", "tw32_plot.png"), plot = plot, device = ragg::agg_png(), width = 20, height = 10)
+ggsave(here('2020', "week33", "tw33_plot.png"), plot = plot, device = ragg::agg_png(), width = 20, height = 10)

@@ -52,4 +52,4 @@ plot <- ggplot(by_continent, aes(x = start, y = count, color = continent, fill =
   theme(plot.title.position = "plot",
         plot.caption.position = "panel")
 
-ggsave(here("2020", "week33", "tw33_plot.png"), plot, width = 12, height = 8)
+ggsave(here("2020", "week34", "tw34_plot.png"), plot, width = 12, height = 8)

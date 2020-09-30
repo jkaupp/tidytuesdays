@@ -85,5 +85,5 @@ plot <- ggplot() +
         axis.text.y = element_blank(),
         axis.text.x = element_blank())
 
-ggsave(here("2020", "week34", "tw_34plot.png"), plot, width = 12, height = 24)
+ggsave(here("2020", "week35", "tw_35plot.png"), plot, width = 12, height = 24)
   

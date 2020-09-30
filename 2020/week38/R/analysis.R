@@ -7,7 +7,7 @@ library(ggforce)
 library(ggrepel)
 library(glue)
 
-child_poverty <- here("2020", "week37", "data", "state-5-U18-pov-inc-010918.xlsx") %>% 
+child_poverty <- here("2020", "week38", "data", "state-5-U18-pov-inc-010918.xlsx") %>% 
   read_excel(skip = 4) %>% 
   janitor::clean_names() %>% 
   select(state,  child_poverty_rate = x2016_acs_child_poverty_rate) %>% 
@@ -58,6 +58,6 @@ plot <- ggplot(plot_data, aes(y = inf_adj_perchild, x = child_poverty_rate)) +
            subtitle_family = "Poppins",
            grid = "XY")
   
-ggsave(here("2020", "week37", "tw37_plot.png"), width = 20, height = 11, units = "in", dev = ragg::agg_png())
+ggsave(here("2020", "week38", "tw38_plot.png"), width = 20, height = 11, units = "in", dev = ragg::agg_png())
 
 

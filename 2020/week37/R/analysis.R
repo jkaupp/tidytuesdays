@@ -14,16 +14,16 @@ friends_sentences <- friends %>%
   filter(speaker != "Scene Directions", !is.na(speaker)) %>% 
   mutate(splits = get_sentences(text)) 
 
-if (file.exists(here("2020", "week36", "data", "friends_sents.RDS"))) {
+if (file.exists(here("2020", "week37", "data", "friends_sents.RDS"))) {
   
-  friends_sents <- readRDS(here("2020", "week36", "data", "friends_sents.RDS"))
+  friends_sents <- readRDS(here("2020", "week37", "data", "friends_sents.RDS"))
 } else {
   
   friends_sents <- friends_sentences %>% 
     split(.$season) %>% 
     map_dfr(~ .x %$% sentiment_by(splits, by = list(season, episode, scene, speaker)))
   
-  saveRDS(friends_sents, here("2020", "week36", "data", "friends_sents.RDS"))
+  saveRDS(friends_sents, here("2020", "week37", "data", "friends_sents.RDS"))
   
 }
 
@@ -86,4 +86,4 @@ plot <- ggplot(plot_data, aes(x = ave_sentiment, y = speaker, color = speaker, f
   theme(legend.position = "none",
         axis.text.y = element_blank())
 
-ggsave(here("2020", "week36", "tw36_plot.png"), plot = plot, width = 18, height = 12, dev = ragg::agg_png())
+ggsave(here("2020", "week37", "tw37_plot.png"), plot = plot, width = 18, height = 12, dev = ragg::agg_png())

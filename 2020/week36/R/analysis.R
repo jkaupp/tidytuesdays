@@ -7,7 +7,7 @@ library(glue)
 
 tractors <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-01/cereal_yields_vs_tractor_inputs_in_agriculture.csv')
 
-arable_land <- here("2020", "week35", "data", "arable_land.csv") %>% 
+arable_land <- here("2020", "week3", "data", "arable_land.csv") %>% 
   read_csv(na = "") %>% 
   pivot_longer(5:64, names_to = "year", values_to = "arable_land") %>% 
   clean_names() %>% 
@@ -54,4 +54,4 @@ plot <- ggplot(plot_data, aes(y = reorder(country_name, tractors), x = tractors)
            grid = "X") +
   theme(plot.title.position = "plot")
   
-ggsave(here("2020", "week35", "tw35_plot.png"), plot, width = 11, height = 16, dev = ragg::agg_png())
+ggsave(here("2020", "week36", "tw36_plot.png"), plot, width = 11, height = 16, dev = ragg::agg_png())
