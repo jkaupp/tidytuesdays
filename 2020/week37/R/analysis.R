@@ -1,63 +1,89 @@
 library(tidyverse)
-library(tidykids)
+library(friends)
 library(jkmisc)
-library(readxl)
+library(sentimentr)
+library(magrittr)
 library(here)
-library(ggforce)
-library(ggrepel)
+library(ggbeeswarm)
+library(colorspace)
 library(glue)
-
-child_poverty <- here("2020", "week37", "data", "state-5-U18-pov-inc-010918.xlsx") %>% 
-  read_excel(skip = 4) %>% 
-  janitor::clean_names() %>% 
-  select(state,  child_poverty_rate = x2016_acs_child_poverty_rate) %>% 
-  filter(!is.na(state), !is.na(child_poverty_rate)) %>% 
-  mutate(year = "2016") 
-
-plot_data <- tidykids %>% 
-  filter(variable %in% c("PK12ed"), year == "2016") %>% 
-  left_join(child_poverty, by = c('state', 'year')) %>% 
-  select(-contains("variable")) %>% 
-  mutate(ratio = inf_adj_perchild/child_poverty_rate)
-
-overall <- plot_data %>% 
-  summarize(across(c(inf_adj_perchild, child_poverty_rate), mean)) %>% 
-  mutate(ratio = inf_adj_perchild/child_poverty_rate) 
+library(ggforce)
 
 
-highlights <- top_n(plot_data, 3, inf_adj_perchild) %>% 
-  bind_rows( top_n(plot_data, 3, child_poverty_rate)) %>% 
-  mutate(desc = glue("Education Expenditures: ${round(inf_adj_perchild, 2)}k
-                     Child Poverty Rate: {child_poverty_rate}%"))
+friends_sentences <- friends %>% 
+  filter(speaker != "Scene Directions", !is.na(speaker)) %>% 
+  mutate(splits = get_sentences(text)) 
 
-labels <- anti_join(plot_data, highlights) %>% 
-  left_join(bind_cols(state = state.name, abb = state.abb)) %>% 
-    bind_rows(overall) %>% 
-  mutate(abb = if_else(is.na(abb), "US Avg.", abb),
-         color = if_else(abb == "US Avg.", "#cb5a4c", "grey60"))
+if (file.exists(here("2020", "week36", "data", "friends_sents.RDS"))) {
+  
+  friends_sents <- readRDS(here("2020", "week36", "data", "friends_sents.RDS"))
+} else {
+  
+  friends_sents <- friends_sentences %>% 
+    split(.$season) %>% 
+    map_dfr(~ .x %$% sentiment_by(splits, by = list(season, episode, scene, speaker)))
+  
+  saveRDS(friends_sents, here("2020", "week36", "data", "friends_sents.RDS"))
+  
+}
+
+
+friends_pal <- c("#FF4238", "#FFDC00", "#42A2D6", "#9A0006", "#FFF580", "#00009E")
+
+plot_data <- friends_sents %>% 
+  filter(speaker %in% c("Chandler Bing", "Joey Tribbiani", "Monica Geller", "Ross Geller", "Phoebe Buffay", "Rachel Green"))
+
+overall_sentiment <- plot_data %>% 
+  summarize(ave_sentiment = mean(ave_sentiment)) %>% 
+  pull()
+
+character_labels <- plot_data %>% 
+  group_by(speaker) %>% 
+  summarize(start = -1.4,
+            end = min(ave_sentiment),
+            avg = mean(ave_sentiment))
  
-plot <- ggplot(plot_data, aes(y = inf_adj_perchild, x = child_poverty_rate)) +
-  geom_point(data = overall, color = "#cb5a4c", size = 2) +
-  geom_text_repel(data = labels, aes(label = abb, color = color), family = "Courier Prime") +
-  geom_point(size = 2) +
-  geom_mark_circle(data = highlights, aes(label = state, group = state, description = desc), expand = unit(3, "mm"), label.family = c("Courier Prime", "Poppins"), label.minwidth = unit(70, "mm"), label.fontsize = c(14, 10)) +
-  scale_x_continuous(limits = c(0, 35), breaks = seq(0, 30, 10), labels = c("0", "10", "20", "30%")) +
-  scale_y_continuous(limits = c(0, 20), breaks = seq(0, 20, 5), labels = c("0", "5", "10", "15", "$20K")) +
-  scale_color_identity() +
+min <- plot_data %>% 
+  group_by(speaker) %>% 
+  filter(ave_sentiment == min(ave_sentiment)) %>% 
+  left_join(friends_info)
+
+max <- plot_data %>% 
+  group_by(speaker) %>% 
+  filter(ave_sentiment == max(ave_sentiment)) %>% 
+  left_join(friends_info)
+
+
+plot <- ggplot(plot_data, aes(x = ave_sentiment, y = speaker, color = speaker, fill = speaker)) +
+  geom_vline(aes(xintercept = 0), color = "#E5E9F0", size = 0.2, alpha = 0.5) +
+  geom_vline(aes(xintercept = overall_sentiment), color = "#E5E9F0", size = 0.2) +
+  geom_segment(data = character_labels, aes(x = start, xend = end, y = speaker, yend = speaker)) +
+  geom_text(data = character_labels, aes(label = speaker, x = start), color = "#E5E9F0", alpha = 0.5, vjust = -0.2, hjust = 0, family = "Bebas Neue", fontface = "bold", size = 10) +
+  geom_quasirandom(aes(color = speaker), groupOnX = FALSE, size = 1.5, shape = 21) +
+  geom_point(data = character_labels, aes(x = avg), shape = 21, size = 5, color = "#2E3440", stroke = 1) +
+  geom_mark_circle(data = min, aes(x = ave_sentiment, y = speaker, label = glue("{title} Scene: {scene}"), group = speaker), inherit.aes = FALSE, label.family = "Poppins", color =  "#E5E9F080",  label.fill = NA, label.colour = "#E5E9F080", label.fontface = "plain", con.colour = "#E5E9F080", con.type = "elbow", expand = 0.004) +
+  geom_mark_circle(data = max, aes(x = ave_sentiment, y = speaker, label = glue("{title} Scene: {scene}"), group = speaker), inherit.aes = FALSE,  label.family = "Poppins", color =  "#E5E9F080", label.fill = NA, label.colour = "#E5E9F080", label.fontface = "plain", con.colour = "#E5E9F080", con.type = "elbow", expand = 0.004) +
+  annotate("text", x = 0.15, y = 7, label = glue("Overall Average Sentence Sentiment: {round(overall_sentiment, 3)}"), family = "Poppins", color = "#E5E9F080", hjust = 0) +
+  annotate("curve", x = 0.2, xend = 0.1, y = 6.9, yend = 6.5, color = "#E5E9F080", arrow = arrow(length = unit(0.07, "inch"), type = "closed"), curvature = -0.5) +
   labs(x = NULL,
        y = NULL,
-       title = "**Relationship Between Education Spending and Poverty in 2016 America**",
-       subtitle = '"Most people believe that students do better in well-funded schools and that public education should provide a level playing field for all children. Nearly half of the funding for public schools in the United States, however, is provided through<br>local taxes, generating large differences in funding between wealthy and impoverished communities (National Center for Education Statistics, 2000a)."<br>_Biddle, B., and D. C. Berliner. "Unequal school." Educational Leadership 59.8 (2002): 48-59._',
-       caption = "**Data**: {tidykids} | **Graphic**: @jakekaupp") +
-  theme_jk(dark = FALSE,
+       title = "Friends Character Dialogue Sentiment by Episode and Scene",
+       subtitle = "Illustrated below is the sentence level sentiment, aggregated by episode and scene, for the main characters in Friends with each dot representing a scene in an episode. Sentiment scoring and aggregation<br>produced using {sentimentr} for incorporation of valence shifting in natural language processing.",
+       caption = "**Data**:{friends} by Emil Hvitfeldt | **Graphic**: @jakekaupp") +
+  scale_x_continuous(limits = c(-1.41, 1.2), labels = c("","", "More Negative", "Netural", "More Positive", "" , "")) +
+  expand_limits(y = c(0, 7.5)) +
+  scale_color_manual(values = darken(friends_pal)) +
+  scale_fill_manual(values = friends_pal) +
+  theme_jk(grid = FALSE,
+           dark = TRUE,
            markdown = TRUE,
-           base_family = "Courier Prime",
-           plot_title_family = "Courier Prime",
-           plot_title_size = 20,
-           caption_family = "Courier Prime",
+           base_family = "Poppins",
+           base_size = 16,
+           plot_title_family = "Bebas Neue",
+           plot_title_size = 30,
            subtitle_family = "Poppins",
-           grid = "XY")
-  
-ggsave(here("2020", "week37", "tw37_plot.png"), width = 20, height = 10, units = "in", dev = ragg::agg_png())
+           caption_family = "Poppins") +
+  theme(legend.position = "none",
+        axis.text.y = element_blank())
 
-
+ggsave(here("2020", "week36", "tw36_plot.png"), plot = plot, width = 18, height = 12, dev = ragg::agg_png())

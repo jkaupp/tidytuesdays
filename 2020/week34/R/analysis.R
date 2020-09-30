@@ -1,89 +1,55 @@
 library(tidyverse)
 library(here)
 library(jkmisc)
+library(futurevisions)
+library(colorspace)
 library(glue)
-library(ggbump)
-library(ggtext)
 
-chopped <- readr::read_tsv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-08-25/chopped.tsv')
+plants <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-08-18/plants.csv')
 
-ingredient_list <- chopped %>% 
-  pivot_longer(cols = appetizer:dessert, names_to = "type", values_to = "ingredient") %>% 
-  distinct(season, season_episode, series_episode, type, ingredient) %>% 
-  separate_rows(ingredient, sep = ",") %>% 
-  mutate(across(ingredient, trimws)) %>% 
-  filter(!is.na(ingredient)) 
+flowering_plants <- filter(plants, group == "Flowering Plant", !is.na(year_last_seen))
 
-multiples <- count(ingredient_list, ingredient, type) %>% 
-  count(ingredient) %>% 
-  filter(n > 2)
-
-counts <- ingredient_list %>% 
-  count(type, ingredient) %>% 
-  mutate(type = factor(type, c("appetizer", "entree", "dessert"))) %>% 
-  arrange(type, n) %>% 
-  semi_join(multiples, by = c("ingredient")) %>% 
-  group_by(type) %>% 
-  mutate(y_pos = seq_along(ingredient)*2) %>% 
-  mutate(hjust = case_when(type == "appetizer" ~ 1,
-                           type == "dessert" ~ 0,
-                           TRUE ~ 0.5)) %>% 
-  mutate(color = case_when(ingredient == "tomatillos" ~ "#f8333c",
-                           ingredient == "rainbow carrots" ~ "#f8333c",
-                           ingredient == "figs" ~ "#f8333c",
-                           ingredient == "almonds" ~ "#00B295",
-                           ingredient == "animal crackers" ~ "#00B295",
-                           TRUE ~ "black")) %>% 
-  mutate(ingredient = case_when(ingredient == "tomatillos" ~ glue("**{ingredient}**"),
-                           ingredient == "rainbow carrots" ~ glue("**{ingredient}**"),
-                           ingredient == "figs" ~ glue("**{ingredient}**"),
-                           ingredient == "almonds" ~ glue("**{ingredient}**"),
-                           ingredient == "animal crackers" ~ glue("**{ingredient}**"),
-                           TRUE ~ ingredient)) 
+# Two ideas, dendrogram by continent, or timeline
 
 
-edge_lists <- split(counts, counts$type)
+order <- count(flowering_plants, continent) %>% 
+  arrange(n) %>% 
+  mutate(continent = factor(continent, continent)) %>% 
+  rowwise() %>% 
+  mutate(n = ifelse(continent == "Europe", 12,  n))
 
-edge_set_one <- left_join(edge_lists[[1]], edge_lists[[2]], by = "ingredient") %>% 
-  select(ingredient, x = type.x, xend = type.y, y = y_pos.x, yend = y_pos.y)
+by_continent <- flowering_plants %>% 
+  select(binomial_name:year_last_seen) %>% 
+  mutate(year_last_seen = str_replace(year_last_seen, "Before (\\d+)", "1900-\\1")) %>% 
+  separate(year_last_seen, c("start", "end"), sep = "-", convert = TRUE) %>% 
+  count(continent, start) %>% 
+  complete(continent, start = seq(1900, 2020, 10), fill = list(n = 0)) %>% 
+  group_by(continent) %>% 
+  mutate(count = cumsum(n))  %>% 
+  mutate(continent = factor(continent, levels = pull(order, continent)))
 
-edge_set_two <- left_join(edge_lists[[2]], edge_lists[[3]], by = "ingredient") %>% 
-  select(ingredient, x = type.x, xend = type.y, y = y_pos.x, yend = y_pos.y)
 
-edge_sets <- bind_rows(edge_set_one, edge_set_two) %>% 
-  mutate(color = case_when(ingredient == "**tomatillos**" ~ "#f8333c",
-                           ingredient == "**rainbow carrots**" ~ "#f8333c",
-                           ingredient == "**figs**" ~ "#f8333c",
-                           ingredient == "**almonds**" ~ "#00B295",
-                           ingredient == "**animal crackers**" ~ "#00B295",
-                           TRUE ~ "black")) %>% 
-  mutate(size = case_when(str_detect(ingredient, "\\*\\*") ~ 1,
-                          TRUE ~ 0.1))
 
-plot <- ggplot() +
-  geom_label(data = counts, aes(x = type, y = y_pos, label = ingredient, hjust = hjust), family = "Rubik", alpha = 0, color = NA, label.size = 0) +
-  geom_sigmoid(data = edge_sets, aes(x = x, xend = xend, y = y, yend = yend, group = ingredient, color = color, size = size)) +
-  geom_richtext(data = counts, aes(x = type, y = y_pos, label = ingredient, hjust = hjust, color = color), family = "Poppins", fill = "#fbf7f4", label.color = NA) +
-  geom_richtext(data = distinct(counts, type, hjust), aes(x = type, y = 215, label = str_to_title(type), hjust = hjust), family = "Bebas Neue", size = 10, fill = "#fbf7f4", label.color = NA) +
-  scale_color_identity() +
-  scale_size_identity() +
-  theme_jk(grid = FALSE,
+plot <- ggplot(by_continent, aes(x = start, y = count, color = continent, fill = continent)) +
+  geom_area(show.legend = FALSE) +
+  geom_text(data = order, aes(x = 2025, y = n, label = continent), position = position_stack(), hjust = 0, vjust = 1, show.legend = FALSE, family = "Bebas Neue", size = 5) +
+  scale_color_manual(values = darken(rev(futurevisions("cancri")))) +
+  scale_fill_manual(values = rev(futurevisions("cancri"))) +
+  scale_x_continuous(breaks = seq(1900, 2020, 10), expand = c(0.01,0)) +
+  scale_y_continuous(expand = c(0.01,0)) +
+  expand_limits(x = c(1900, 2040)) +
+  labs(title = "Flowering Plant Species Lost Globally From 1900-2020",
+       subtitle = glue("Since 1900, flowering plants have been facing extinctions due to human activities. In total, 500 plant species are considered extinct as of 2020.<br>45% of those were endemic to {highlight_text('Africa', first(futurevisions('cancri')), 'b')} followed by {highlight_text('North', nth(futurevisions('cancri'), 2), 'b')} and {highlight_text('South America', nth(futurevisions('cancri'), 3), 'b')} with 17.8% and 15.4%, respectively."),
+       caption = "**Data**: IUCN Red List | **Graphic**: @jakekaupp",
+       x = NULL,
+       y = NULL) +
+  theme_jk(grid = "XY",
            markdown = TRUE,
+           base_family = "Poppins",
            plot_title_family = "Bebas Neue",
-           plot_title_size = 30,
-           subtitle_size = 15,
            subtitle_family = "Poppins",
            caption_family = "Poppins") +
-  labs(x = NULL,
-       y = NULL,
-       title = "Ingredient Frequency in Chopped Across All Seasons",
-       subtitle = str_break(glue("Illustrated below is a visualization of ingredient frequency/use in appetizers, entrees and desserts across all seasons of Chopped.  Only ingredients that appear in each menu item are shown. Ingredients higher on the list are used with greater frequency than those lower on the list.  Relative position in each list is indicated by curved lines, and the {highlight_text('top','#f8333c', 'b', 20)} and {highlight_text('bottom','#00B295', 'b', 20)} items in each category are highlighted."), 100),
-       caption = "**Data**: Kaggle | **Graphic**: @jakekaupp") +
-  theme(plot.background = element_rect(fill = "#fbf7f4"),
-        plot.title = element_markdown(hjust = 0.5),
-        plot.subtitle = element_markdown(hjust = 0.5),
-        axis.text.y = element_blank(),
-        axis.text.x = element_blank())
+  theme(plot.title.position = "plot",
+        plot.caption.position = "panel")
 
-ggsave(here("2020", "week34", "tw_34plot.png"), plot, width = 12, height = 24)
-  
+ggsave(here("2020", "week33", "tw33_plot.png"), plot, width = 12, height = 8)

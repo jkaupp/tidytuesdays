@@ -1,89 +1,57 @@
 library(tidyverse)
-library(friends)
+library(janitor)
 library(jkmisc)
-library(sentimentr)
-library(magrittr)
 library(here)
-library(ggbeeswarm)
 library(colorspace)
 library(glue)
-library(ggforce)
 
+tractors <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-01/cereal_yields_vs_tractor_inputs_in_agriculture.csv')
 
-friends_sentences <- friends %>% 
-  filter(speaker != "Scene Directions", !is.na(speaker)) %>% 
-  mutate(splits = get_sentences(text)) 
+arable_land <- here("2020", "week35", "data", "arable_land.csv") %>% 
+  read_csv(na = "") %>% 
+  pivot_longer(5:64, names_to = "year", values_to = "arable_land") %>% 
+  clean_names() %>% 
+  select(year, country_code, country_name, arable_land) %>% 
+  filter(country_code != "AND")
 
-if (file.exists(here("2020", "week36", "data", "friends_sents.RDS"))) {
+world_tractor <- tractors %>% 
+  clean_names() %>% 
+  rename(tractors_per = tractors_per_100_sq_km_arable_land) %>% 
+  select(year, country_code = code, tractors_per, total_population_gapminder) %>% 
+  inner_join(arable_land) %>% 
+  mutate(tractors = tractors_per/100*(1/100)*(arable_land/total_population_gapminder)) %>%
+  mutate(fill = "#367c2b") %>% 
+  filter(year == 2000, !is.na(tractors))
   
-  friends_sents <- readRDS(here("2020", "week36", "data", "friends_sents.RDS"))
-} else {
+global_avg <- world_tractor %>% 
+  summarize(tractors = mean(tractors),
+            year = "2000",
+            country_name = "Global Average",
+            fill = "#FFDE00")
+
+plot_data <- bind_rows(world_tractor, global_avg) %>% 
+  mutate(country_name = if_else(country_name == "Global Average", 
+                                highlight_text(country_name, colour = "#FFDE00", style =  "b", size = 10), 
+                                highlight_text(country_name, colour = "#FFFFFF", style =  "", size = 10)))
   
-  friends_sents <- friends_sentences %>% 
-    split(.$season) %>% 
-    map_dfr(~ .x %$% sentiment_by(splits, by = list(season, episode, scene, speaker)))
-  
-  saveRDS(friends_sents, here("2020", "week36", "data", "friends_sents.RDS"))
-  
-}
-
-
-friends_pal <- c("#FF4238", "#FFDC00", "#42A2D6", "#9A0006", "#FFF580", "#00009E")
-
-plot_data <- friends_sents %>% 
-  filter(speaker %in% c("Chandler Bing", "Joey Tribbiani", "Monica Geller", "Ross Geller", "Phoebe Buffay", "Rachel Green"))
-
-overall_sentiment <- plot_data %>% 
-  summarize(ave_sentiment = mean(ave_sentiment)) %>% 
-  pull()
-
-character_labels <- plot_data %>% 
-  group_by(speaker) %>% 
-  summarize(start = -1.4,
-            end = min(ave_sentiment),
-            avg = mean(ave_sentiment))
- 
-min <- plot_data %>% 
-  group_by(speaker) %>% 
-  filter(ave_sentiment == min(ave_sentiment)) %>% 
-  left_join(friends_info)
-
-max <- plot_data %>% 
-  group_by(speaker) %>% 
-  filter(ave_sentiment == max(ave_sentiment)) %>% 
-  left_join(friends_info)
-
-
-plot <- ggplot(plot_data, aes(x = ave_sentiment, y = speaker, color = speaker, fill = speaker)) +
-  geom_vline(aes(xintercept = 0), color = "#E5E9F0", size = 0.2, alpha = 0.5) +
-  geom_vline(aes(xintercept = overall_sentiment), color = "#E5E9F0", size = 0.2) +
-  geom_segment(data = character_labels, aes(x = start, xend = end, y = speaker, yend = speaker)) +
-  geom_text(data = character_labels, aes(label = speaker, x = start), color = "#E5E9F0", alpha = 0.5, vjust = -0.2, hjust = 0, family = "Bebas Neue", fontface = "bold", size = 10) +
-  geom_quasirandom(aes(color = speaker), groupOnX = FALSE, size = 1.5, shape = 21) +
-  geom_point(data = character_labels, aes(x = avg), shape = 21, size = 5, color = "#2E3440", stroke = 1) +
-  geom_mark_circle(data = min, aes(x = ave_sentiment, y = speaker, label = glue("{title} Scene: {scene}"), group = speaker), inherit.aes = FALSE, label.family = "Poppins", color =  "#E5E9F080",  label.fill = NA, label.colour = "#E5E9F080", label.fontface = "plain", con.colour = "#E5E9F080", con.type = "elbow", expand = 0.004) +
-  geom_mark_circle(data = max, aes(x = ave_sentiment, y = speaker, label = glue("{title} Scene: {scene}"), group = speaker), inherit.aes = FALSE,  label.family = "Poppins", color =  "#E5E9F080", label.fill = NA, label.colour = "#E5E9F080", label.fontface = "plain", con.colour = "#E5E9F080", con.type = "elbow", expand = 0.004) +
-  annotate("text", x = 0.15, y = 7, label = glue("Overall Average Sentence Sentiment: {round(overall_sentiment, 3)}"), family = "Poppins", color = "#E5E9F080", hjust = 0) +
-  annotate("curve", x = 0.2, xend = 0.1, y = 6.9, yend = 6.5, color = "#E5E9F080", arrow = arrow(length = unit(0.07, "inch"), type = "closed"), curvature = -0.5) +
-  labs(x = NULL,
-       y = NULL,
-       title = "Friends Character Dialogue Sentiment by Episode and Scene",
-       subtitle = "Illustrated below is the sentence level sentiment, aggregated by episode and scene, for the main characters in Friends with each dot representing a scene in an episode. Sentiment scoring and aggregation<br>produced using {sentimentr} for incorporation of valence shifting in natural language processing.",
-       caption = "**Data**:{friends} by Emil Hvitfeldt | **Graphic**: @jakekaupp") +
-  scale_x_continuous(limits = c(-1.41, 1.2), labels = c("","", "More Negative", "Netural", "More Positive", "" , "")) +
-  expand_limits(y = c(0, 7.5)) +
-  scale_color_manual(values = darken(friends_pal)) +
-  scale_fill_manual(values = friends_pal) +
-  theme_jk(grid = FALSE,
-           dark = TRUE,
+plot <- ggplot(plot_data, aes(y = reorder(country_name, tractors), x = tractors)) +
+  geom_col(aes(fill = fill, color = darken(fill)), size = 0.1) +
+  labs(y = NULL,
+       x = NULL,
+       title = "You Can Take a Ride in My Big Green Tractor: Estimated Global Tractors Per Capita Circa 2000",
+       subtitle = str_break(glue("Illustrated below is a bar chart of the estimated number of {highlight_text('tractors per capita', '#367c2b', 'b')} in 2000 across the globe, as well as the {highlight_text('estimated global average', '#FFDE00', 'b')}.  The tractor estimates were constructed by taking the number of tractors per square kilometer of arable land multiplying by the amount of arable land and dividing by the population."), 125),
+       caption = "**Data**: Our World in Data | **Graphic**: @jakekaupp") +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_fill_identity() +
+  scale_color_identity() +
+  theme_jk(dark = TRUE,
            markdown = TRUE,
-           base_family = "Poppins",
-           base_size = 16,
-           plot_title_family = "Bebas Neue",
-           plot_title_size = 30,
+           plot_title_family = "Oswald",
+           plot_title_size = 20,
            subtitle_family = "Poppins",
-           caption_family = "Poppins") +
-  theme(legend.position = "none",
-        axis.text.y = element_blank())
-
-ggsave(here("2020", "week36", "tw36_plot.png"), plot = plot, width = 18, height = 12, dev = ragg::agg_png())
+           caption_family = "Poppins",
+           base_family = "Poppins",
+           grid = "X") +
+  theme(plot.title.position = "plot")
+  
+ggsave(here("2020", "week35", "tw35_plot.png"), plot, width = 11, height = 16, dev = ragg::agg_png())
