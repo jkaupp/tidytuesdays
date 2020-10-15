@@ -9,7 +9,7 @@ library(here)
 nodes <- theoffice %>% 
   distinct(season, episode, character) %>% 
   count(character, sort = TRUE) %>% 
-  filter(n > 50)
+  filter(n > 50) 
 
 ep_list <- theoffice %>% 
   distinct(season, episode, character) %>% 
@@ -28,9 +28,11 @@ edges <- theoffice %>%
   rename(from = character) %>% 
   filter(from != to) %>% 
   count(from, to, name = "size") %>% 
-  mutate(temp = ifelse(from > to, paste0(to, from), paste0(from, to))) %>% 
+  left_join(nodes, by = c("from" = "character")) %>% 
+  left_join(nodes, by = c("to" = "character")) %>% 
+  mutate(temp = ifelse(n.x > n.y, paste0(to, from), paste0(from, to))) %>% 
   distinct(temp, .keep_all = TRUE) %>% 
-  select(-temp)
+  select(from, to, size)
 
 graph <- tbl_graph(nodes, edges)
 
