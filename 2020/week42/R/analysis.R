@@ -5,6 +5,7 @@ library(jkmisc)
 library(snakecase)
 library(patchwork)
 library(ggtext)
+library(here)
 
 
 dino <- ggplot(filter(datasaurus_dozen, dataset == "dino"), aes(x = x, y = y)) +
@@ -44,8 +45,8 @@ dozen <- ggplot(filter(datasaurus_dozen, dataset != "dino"), aes(x = x, y = y)) 
         axis.text.y = element_blank())
 
 
-wrap_plots(dino, dozen, ncol = 2) + plot_annotation(title = "Go Home Anscombosaurus, You're Drunk.",
-                                                    subtitle = "Sometimes coordinate projections just ruin everyone's fun. Shown below are the Datasaurus dozen, 13 datasets with identical summary statistics but with unique layouts.  These datasets are a variant of Anscombe's Quartet and are often used to highlight the importance of visualizing data.",
+plot <- wrap_plots(dino, dozen, ncol = 2) + plot_annotation(title = "Go Home Anscombosaurus, You're Drunk.",
+                                                    subtitle = "Sometimes coordinate projections just ruin everyone's fun. Shown below are the Datasaurus dozen, 13 datasets with identical summary statistics but with unique layouts.  These datasets are<br>a variant of Anscombe's Quartet and are often used to highlight the importance of visualizing data.",
                                                     caption = "**Data**: {datasauRus} | **Graphic**: @jakekaupp",
   theme =  theme_jk(grid = FALSE,
                     plot_title_family =  "Teko",
@@ -60,3 +61,4 @@ wrap_plots(dino, dozen, ncol = 2) + plot_annotation(title = "Go Home Anscombosau
           axis.text.x = element_blank(),
           axis.text.y = element_blank()))
 
+ggsave(here("2020", "week42", "tw42_plot.png"), plot = plot, dev = ragg::agg_png(), width = 16, height = 10)
