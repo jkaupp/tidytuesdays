@@ -7,6 +7,7 @@ library(here)
 library(colorspace)
 library(ggtext)
 library(glue)
+library(magick)
 
 wind_turbine <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-10-27/wind-turbine.csv')
 
@@ -39,13 +40,15 @@ mt_hwy <- maritimes_bbox %>%
 mt_hwy_clipped <- st_intersection(mt_hwy$osm_lines, maritimes)
 
 
-ggplot() +
+plot <- ggplot() +
   geom_sf(data = maritimes, inherit.aes = FALSE, color = darken("#2F394D"), fill = "#F2EFEA") +
   geom_sf(data = mt_hwy_clipped, inherit.aes = FALSE, color = "#403d58", size = 0.1) +
   geom_point(data = maritimes_turbines, aes(x = longitude, y = latitude), fill = "#F35B04", color = "#F18701", shape = 21, alpha = 0.4, size = 3) +
   annotate("text", label = "Wind Power Generation in the Maritimes", x = -64.3, y = 48, family = "Francois One", color = "#F2EFEA", size = 9, hjust = 0) +
   annotate("richtext", label = glue("Shown below are the {highlight_text('wind turbines', '#F18701', 'b', size = 15)} built from 2001-2018 as part of larger wind farm prpjects in<br>Nova Scotia, New Brunswick and Prince Edward Island, also called the Maritimes or the<br>Maritime Provinces of Canada."), x = -64.3, y = 47.65, family = "Francois One", color = "#F2EFEA", size = 4, fill = NA, label.colour = NA, hjust = 0) +
-  annotate("text", label = "N O V A  S C O T I A", x = -64.3, y = 44, family = "Francois One", color = "#F2EFEA") +
+  annotate("text", label = "N O V A  S C O T I A", x = -62.3, y = 44.5, family = "Francois One", color = "#F2EFEA") +
+  annotate("text", label = "P R I N C E   E D W A R D  I S L A N D", x = -62, y = 47, family = "Francois One", color = "#F2EFEA", hjust = 1) +
+  annotate("text", label = "N E W  B R U N S W I C K", x = -67, y = 44.9, family = "Francois One", color = "#F2EFEA") +
   labs(x = NULL,
        y = NULL,
        caption = "**Data**: Government of Canada | **Graphic**: @jakekaupp") +
@@ -56,3 +59,12 @@ ggplot() +
         axis.text.x = element_blank(),
         axis.text.y = element_blank(),
         plot.caption = element_markdown(color = "#F2EFEA"))
+
+ggsave(here("2020", "week44", "tw44_plot.png"), plot, width = 16, height = 10, dev = ragg::agg_png())
+
+here("2020", "week44", "tw44_plot.png") %>% 
+  image_read() %>% 
+  image_trim() %>% 
+  image_write(here("2020", "week44", "tw44_plot.png"))
+
+
