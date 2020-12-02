@@ -78,15 +78,33 @@ lines <- stem_labels %>%
          y = case_when(node == "Sofas & armchairs" ~ y - 0.1,
                        TRUE ~ y))
 
+groups <- final_graph %>% 
+  activate(edges) %>% 
+  as_tibble() %>% 
+  mutate(idx = row_number()) %>% 
+  filter(idx > 18) %>% 
+  group_by(from) %>% 
+  summarize(idx = range(idx)) 
+
+bars <- create_layout(final_graph, layout = 'dendrogram', circular = TRUE) %>%
+  right_join(groups, by = c(".ggraph.index" = "idx")) %>% 
+  mutate(x_item = rep(c("x", "xend"), 17)) %>% 
+  pivot_wider(names_from = x_item, values_from = x) %>% 
+  mutate(y_item = rep(c("y", "yend"), 17)) %>% 
+  pivot_wider(names_from = y_item, values_from = y) %>% 
+  group_by(from) %>% 
+  summarize(across(.ggraph.orig_index:yend, mean, na.rm = TRUE)) %>% 
+  mutate(circular = as.logical(circular))
 
 plot <- ggraph(final_graph, layout = 'dendrogram', circular = TRUE) + 
   geom_edge_diagonal(colour  = "#FFDA1A", alpha = 0.1, width = 0.9) +
   geom_node_text(aes(x = x*3, y = y*3, label = glue("{label}\n({scales::percent(percent, accuracy = 0.1)})"), filter = leaf == FALSE & node != 'root', hjust = ifelse(between(node_angle(x,y), 90, 270), 1, 0)), size = 3, color = "white", family = "Noto Sans Bold", data = stem_labels) +
   geom_segment(aes(x = 2*xold, xend = 2.8*x, y = 2*y, yend = 2.8*yend), data = lines, color = "white", size = 0.2) +
   geom_node_point(aes(filter = leaf), colour  = "#FFDA1A") +
-  annotate("label", x = 0, y = 0.15, label = "IKEA", family = "Anton", colour  = "#FFDA1A", size = 20, label.size = 0, fill = "#0051ba") +
-  annotate("label", x = 0, y = -0.085, label = "Catalogue", family = "Anton", colour  = "#FFDA1A", size = 8, label.size = 0, fill = "#0051ba") +
-  annotate("label", x = 0, y = -0.235, label = "Categories", family = "Anton", colour  = "#FFDA1A", size = 8, label.size = 0, fill = "#0051ba") +
+  geom_segment(data = filter(bars, from == 2),  aes(x = x, xend = xend, y = y, yend = yend, group = 1)) +
+  #annotate("label", x = 0, y = 0.15, label = "IKEA", family = "Anton", colour  = "#FFDA1A", size = 20, label.size = 0, fill = "#0051ba") +
+  #annotate("label", x = 0, y = -0.085, label = "Catalogue", family = "Anton", colour  = "#FFDA1A", size = 8, label.size = 0, fill = "#0051ba") +
+  #annotate("label", x = 0, y = -0.235, label = "Categories", family = "Anton", colour  = "#FFDA1A", size = 8, label.size = 0, fill = "#0051ba") +
   labs(x = NULL, 
        y = NULL,
        title = NULL,
