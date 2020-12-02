@@ -56,5 +56,5 @@ plot <- ggplot(plot_data) +
         strip.text = element_blank(),
         legend.position = "none")
 
-ggsave(here("2020", "week47", "tw47_plot.png"), plot, width = 8, height = 10, dev = ragg::agg_png())
+ggsave(here("2020", "week48", "tw48_plot.png"), plot, width = 8, height = 10, dev = ragg::agg_png())
 
