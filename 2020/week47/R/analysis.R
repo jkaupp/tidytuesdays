@@ -4,6 +4,7 @@ library(here)
 library(waffle)
 library(nord)
 library(jkmisc)
+library(magick)
 
 hike_data_rds <- url('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-11-24/hike_data.rds') %>% 
   read_rds()
@@ -56,3 +57,4 @@ plot <- ggplot(plot_data) +
         legend.position = "none")
 
 ggsave(here("2020", "week47", "tw47_plot.png"), plot, width = 8, height = 10, dev = ragg::agg_png())
+
