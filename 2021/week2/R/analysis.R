@@ -7,6 +7,7 @@ library(glue)
 library(ggtext)
 library(ggforce)
 library(scales)
+library(magick)
 
 transit_cost <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-05/transit_cost.csv')
 
@@ -73,12 +74,12 @@ plot <- ggplot() +
   labs(x = NULL,
        y = NULL,
        title = "The 5 Most Expensive Subway Projects In The World Are In NYC",
-       subtitle = "The circles below represent 535 subway projects around the world with each area proportional to the cost in millions of dollars per square kilometer.",
+       subtitle = "The circles below represent 535 subway projects around the world with each area proportional to<br>the cost in millions of dollars per square kilometer.",
        caption = "**Data**: TransitCosts.com | **Graphic**: @jakekaupp") +
   theme_jk(base_family = "Helvetica",
            plot_title_family = "Helvetica Bold",
-           plot_title_size = 24,
-           subtitle_size = 14,
+           plot_title_size = 26,
+           subtitle_size = 16,
            caption_size = 14,
            subtitle_family = "Helvetica",
            caption_family = "Helvetica",
@@ -94,3 +95,7 @@ plot <- ggplot() +
   
 
 ggsave(here("2021", "week2", "tw2_plot.png"), plot, width = 13, height = 13, dev = ragg::agg_png())
+
+image_read(here("2021", "week2", "tw2_plot.png")) %>% 
+  image_trim() %>% 
+  image_write(here("2021", "week2", "tw2_plot.png"))
