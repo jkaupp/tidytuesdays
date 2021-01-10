@@ -26,15 +26,6 @@ clean_transit <- clean_transit %>%
          alpha = if_else(line %in% top_5, 0.6 , 0.5))
 
 
-legend_circles <- label_data %>% 
-  mutate(groups = cut(radius, 5)) %>% 
-  split(.$groups) %>% 
-  map_dfr(~top_n(.x, -1, radius)) %>%
-  select(radius, cost_km_millions) %>% 
-  mutate(x = 0,
-         y = max(radius) + radius,
-         y_label = max(radius) + 2*radius)
-
 clean_transit[clean_transit$fill == "#A61C3C", 22] <- nyc_subway_colors
 
 packing <- circleProgressiveLayout(clean_transit$cost_km_millions, sizetype = "area")
@@ -47,6 +38,15 @@ circles <- circleLayoutVertices(packing, npoints = 50) %>%
   left_join(select(label_data, -x, -y), layout, by = "id")
 
 labels <- filter(label_data, line %in% top_5)
+
+legend_circles <- label_data %>% 
+  mutate(groups = cut(radius, 5)) %>% 
+  split(.$groups) %>% 
+  map_dfr(~top_n(.x, -1, radius)) %>%
+  select(radius, cost_km_millions) %>% 
+  mutate(x = 0,
+         y = max(radius) + radius,
+         y_label = max(radius) + 2*radius)
 
 legend <- ggplot(legend_circles, aes(x0 = x, y0 = y, r = radius)) +
   geom_circle(color = "#808183", size = 0.75, fill = "#808183", alpha = 0.5) + 
@@ -74,7 +74,7 @@ plot <- ggplot() +
   labs(x = NULL,
        y = NULL,
        title = "The 5 Most Expensive Subway Projects In The World Are In NYC",
-       subtitle = "The circles below represent 535 subway projects around the world with each area proportional to<br>the cost in millions of dollars per square kilometer.",
+       subtitle = "The circles below represent 535 subway projects around the world with each area proportional to<br>the cost in millions of dollars per kilometer.",
        caption = "**Data**: TransitCosts.com | **Graphic**: @jakekaupp") +
   theme_jk(base_family = "Helvetica",
            plot_title_family = "Helvetica Bold",
