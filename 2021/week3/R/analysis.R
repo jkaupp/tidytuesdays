@@ -68,7 +68,7 @@ plot_data <- artwork %>%
 plot <- ggplot(plot_data, aes(x = x_idx, y = y_idx, fill = hex)) +
   geom_tile() +
   annotate("text", x = -2, y = 0, label = "Watercolor Palettes at", family = "Aleo Light", size = 3) +
-  annotate("text", x = -3, y = 0, label = "T H E  T A T E", family = "Aleo Bold", size = 6) +
+  annotate("text", x = -3, y = 0, label = "T H E  T A T E", family = "Aleo Bold", size = 5) +
   annotate("text", x = -4, y = 0, label = "7091 Works\n1596 to 2008", family = "Aleo Light", size = 3, vjust = 1) +
   scale_fill_identity() +
   labs(x = NULL,
