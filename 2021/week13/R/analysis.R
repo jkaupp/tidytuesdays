@@ -9,6 +9,7 @@ library(lubridate)
 library(patchwork)
 library(glue)
 library(ggtext)
+library(altText)
 
 unvotes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-23/unvotes.csv')
 roll_calls <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-23/roll_calls.csv')
@@ -107,4 +108,4 @@ ggsave(here("2021", "week13", "tw13_plot.png"), plot, width = 20, height = 10, d
 alt_text <- "Show are two charts in a single graphic illustrating United States voting patterns on UN resolutions from 1946 to 2019. The top chart represents each vote as a vertical stripes with red for yes votes, blue for no vote and grey for abstentions. The  the bottom chart depicts the percentages between three ballot choices with the same color categories as the first graphic, showing the United states voting no 54.7% of the time; voting yes 26.2% of the time and abstaining 19.2% of the time."
 
 
-
+alt_text(plot)
