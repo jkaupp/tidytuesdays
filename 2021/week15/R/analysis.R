@@ -51,7 +51,7 @@ plots <- filter(plot_data, year %in% seq(2015, 2210, 10)) %>%
   labs(x = NULL,
        y = NULL,
        title = "Unless someone like you cares a whole awful lot, nothing is going to get better. It's not.",
-       subtitle = str_wrap("In a 2015 study, published in Nature, Thomas Crowther and colleagues mapped tree density across the world. They estimated that there were approximately 3.04 trillion trees in the world. The authors also estimated that over 15 billion trees are cut down each year, and the global number of trees has fallen by almost half (46%) since the start of human civilization.  Each dot on the trees below represent one billion trees. Each year 15 dots are faded out to illustrate the progressive loss. At this rate, our forrests will evaporate within 200 years.", 200),
+       subtitle = str_wrap("In a 2015 study, published in Nature, Thomas Crowther and colleagues mapped tree density across the world. They estimated that there were approximately 3.04 trillion trees in the world. The authors also estimated that over 15 billion trees are cut down each year, and the global number of trees has fallen by almost half (46%) since the start of human civilization.  Each dot on the trees below represent one billion trees. Each year 15 dots are faded out to illustrate the progressive loss. At this rate, our forests will evaporate within 200 years.", 200),
        caption = "**Data**: ourworldindata.org/forests | **Article**: doi.org/10.1038/nature14967 | **Graphic**: @jakekaupp") +
   scale_fill_identity() + 
   coord_equal() +
@@ -69,3 +69,5 @@ plots <- filter(plot_data, year %in% seq(2015, 2210, 10)) %>%
         axis.text.y = element_blank())
 
 ggsave(here("2021", "week15", "tw15_plot.png"), plots, width = 20, height = 8)
+
+altText::alt_text(plots)
