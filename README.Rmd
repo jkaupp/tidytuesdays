@@ -1,0 +1,57 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE, echo = FALSE, warning = FALSE}
+library(tidyverse)
+library(fs)
+library(here)
+library(glue)
+library(gt)
+
+```
+
+
+# Whats all this then?
+
+It's my repository for #tidytuesday entries!  I'll include code and submission week by week.
+
+# What's #TidyTuesday?
+
+Either you have an interest in cleaning house on Tuesday or you like #rstats, #tidyverse &#R4DS!
+
+TidyTuesday is an initative grown out of Jesse Mostipak (@kierisi) #R4DS & the community mentor group, started by Thomas Mock (@thomas_mock).  You can read all about it and get involved [here](https://github.com/rfordatascience/tidytuesday/blob/master/README.md)
+
+```{r, echo = FALSE, include = FALSE}
+image_table <- tibble(path = dir_ls(here(), glob = "*.png", recurse = 2)) %>% 
+  mutate(file = basename(path),
+         year = as.numeric(str_extract(path, "[0-9]{4}(?=\\/)")),
+         week = as.numeric(str_extract(path, "(?<=week)\\d{1,2}"))) %>% 
+  arrange(year, week, file, path) %>% 
+  group_by(year, week) %>% 
+  mutate(idx = row_number()) %>% 
+  ungroup() %>% 
+  mutate(tag = glue("tt_{year}_{week}{ifelse(length(idx) > 1, glue('_{idx}'), '')}.png")) %>% 
+  mutate(path = as.character(path)) %>% 
+  select(year, week, idx, path)
+```
+
+## Results {.tabset}
+
+### 2018
+
+```{r, echo = FALSE}
+image_table %>% 
+  filter(year  == 2018) %>% 
+  gt() %>%
+  text_transform(
+    locations = cells_body(columns = vars(path)),
+    fn = function(x) {
+      map(x, ~local_image(
+        filename = .x,
+        height = 100
+      ))
+    }
+  ) %>% 
+  tab_options(table.width = pct(100))
+```
