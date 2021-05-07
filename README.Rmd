@@ -22,7 +22,7 @@ Either you have an interest in cleaning house on Tuesday or you like #rstats, #t
 
 TidyTuesday is an initative grown out of Jesse Mostipak (@kierisi) #R4DS & the community mentor group, started by Thomas Mock (@thomas_mock).  You can read all about it and get involved [here](https://github.com/rfordatascience/tidytuesday/blob/master/README.md)
 
-```{r, echo = FALSE, include = FALSE}
+```{r, echo = FALSE, include = FALSE, eval = FALSE}
 image_table <- tibble(path = dir_ls(here(), glob = "*.png", recurse = 2)) %>% 
   mutate(file = basename(path),
          year = as.numeric(str_extract(path, "[0-9]{4}(?=\\/)")),
@@ -36,11 +36,7 @@ image_table <- tibble(path = dir_ls(here(), glob = "*.png", recurse = 2)) %>%
   select(year, week, idx, path)
 ```
 
-## Results {.tabset}
-
-### 2018
-
-```{r, echo = FALSE}
+```{r, echo = FALSE, eval = FALSE}
 image_table %>% 
   filter(year  == 2018) %>% 
   gt() %>%
