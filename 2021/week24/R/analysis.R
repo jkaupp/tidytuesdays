@@ -27,7 +27,7 @@ stocked %>%
   #geom_text(data = lakes, aes(x = 1968, y = 0, label = label), family = "Oswald", size = 10, hjust = 0, vjust = -0.1) +
   labs(x = NULL,
        y =  "<span style = 'font-family:Oswald;font-size:30pt'>The Delicate Balance to Maintain Great Lakes Fisheries</span><br><br>
-      <span style = 'font-family:Bitter;font-size:14pt'>Shown on the right is a porportional area chart showing the fish stocks from 1968 to 2020. <span style = 'font-family:Bitter;font-size:14pt;color:#fa8072'><b>Chinnok Salmon</b></span> were introduced in 1966 to curtail an overabundance of Alewife and have seen a reduction in yearly stocks since 2003. This reduction is to help balance the predator/prey relationships in the Great Lakes and avoid throwing ecosystem into a downward sprial in the face of the increasing threats of invasive species. </span>
+      <span style = 'font-family:Bitter;font-size:14pt'>Shown on the right is a porportional area chart showing the fish stocks from 1968 to 2020. <span style = 'font-family:Bitter;font-size:14pt;color:#fa8072'><b>Chinook Salmon</b></span> were introduced in 1966 to curtail an overabundance of Alewife and have seen a reduction in yearly stocks since 2003. This reduction is to help balance the predator/prey relationships in the Great Lakes and avoid throwing ecosystem into a downward sprial in the face of the increasing threats of invasive species. </span>
       <br><br><br><br><span style = 'font-family:Bitter;font-size:12pt'>**Data**:Great Lakes Fishery Commission<br>**Graphic**: @jakekaupp</span>") +
   scale_fill_identity() +
   scale_color_identity() +
@@ -47,6 +47,6 @@ stocked %>%
 
 
 
-alt_text <- "This is a graphic showing a porportional area chart of fish stocks in 18 species from 1968 to 2020. Chinnok salmon are highlighted in a pink color while the other 17 are different shades of grey. The chinnok salmon were introduced in 1966 to curtail an overabundance of Alewife and have seen a reduction in yearly stocks since 2003. This reduction is to help balance the predator/prey relationships in the Great Lakes and avoid throwing ecosystem into a downward sprial in the face of the increasing threats of invasive species. The data is from the Great Lakes Fishery Commission (http://www.glfc.org/great-lakes-databases.php) and the graphic is by Jake Kaupp"
+alt_text <- "This is a graphic showing a porportional area chart of fish stocks in 18 species from 1968 to 2020. Chinook salmon are highlighted in a pink color while the other 17 are different shades of grey. The chinook salmon were introduced in 1966 to curtail an overabundance of Alewife and have seen a reduction in yearly stocks since 2003. This reduction is to help balance the predator/prey relationships in the Great Lakes and avoid throwing ecosystem into a downward sprial in the face of the increasing threats of invasive species. The data is from the Great Lakes Fishery Commission (http://www.glfc.org/great-lakes-databases.php) and the graphic is by Jake Kaupp"
 
 
